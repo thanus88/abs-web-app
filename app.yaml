@@ -1,8 +1,7 @@
 #service: abs-authen-service
-runtime: java8
-env: standard
-runtime_config:
-  jdk: openjdk8
+runtime: python27
+api_version: 1
+threadsafe: true
 #env_variables: 
 #  SPRING_PROFILES_ACTIVE: "staging"
 handlers:
