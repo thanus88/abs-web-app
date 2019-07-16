@@ -1,28 +1,24 @@
-#service: abs-authen-service
 runtime: python27
 api_version: 1
-threadsafe: true
-#env_variables: 
-#  SPRING_PROFILES_ACTIVE: "staging"
+threadsafe: yes
+
+#env_variables:
+ # API_KEY: <API key for projects app engine>
+
 handlers:
-- url: /.*
-  script: src/index.html
-   
-manual_scaling: 
-  instances: 1
-# Application Resources
-#resources:
-#  cpu: 1
-#  memory_gb: 1
-#  disk_size_gb: 1
-#  volumes:
-#  - name: ramdisk1
-#    volume_type: tmpfs
-#    size_gb: 0.5
-# Automatic Scaling
-#automatic_scaling: 
-#  min_num_instances: 1 
-#  max_num_instances: 2 
-#  cool_down_period_sec: 180 
-#  cpu_utilization: 
-#    target_utilization: 0.6
+
+  - url: /
+    static_files: src/index.html
+    upload: src/index.html
+  - url: /
+    static_dir: src
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
