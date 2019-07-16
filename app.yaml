@@ -1,0 +1,29 @@
+#service: abs-authen-service
+runtime: java8
+env: standard
+runtime_config:
+  jdk: openjdk8
+#env_variables: 
+#  SPRING_PROFILES_ACTIVE: "staging"
+handlers:
+- url: /.*
+  script: src/index.html
+   
+manual_scaling: 
+  instances: 1
+# Application Resources
+#resources:
+#  cpu: 1
+#  memory_gb: 1
+#  disk_size_gb: 1
+#  volumes:
+#  - name: ramdisk1
+#    volume_type: tmpfs
+#    size_gb: 0.5
+# Automatic Scaling
+#automatic_scaling: 
+#  min_num_instances: 1 
+#  max_num_instances: 2 
+#  cool_down_period_sec: 180 
+#  cpu_utilization: 
+#    target_utilization: 0.6
