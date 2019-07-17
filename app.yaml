@@ -1,10 +1,12 @@
-#service: abs-authen-service
 runtime: python27
 api_version: 1
-threadsafe: true
-#env_variables: 
-#  SPRING_PROFILES_ACTIVE: "staging"
+threadsafe: yes
+
+#env_variables:
+ # API_KEY: <API key for projects app engine>
+
 handlers:
+<<<<<<< HEAD
 - url: /.*
   script: /src/index.html
    
@@ -26,3 +28,21 @@ manual_scaling:
 #  cool_down_period_sec: 180 
 #  cpu_utilization: 
 #    target_utilization: 0.6
+=======
+
+  - url: /
+    static_files: src/index.html
+    upload: src/index.html
+  - url: /
+    static_dir: src
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
+>>>>>>> e8fe686e6d4f52c35bd746b28473d56288d5603c
