@@ -1,34 +1,57 @@
-/* tslint:disable:no-unused-variable */
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
 import { TestBed, async } from '@angular/core/testing';
+
+import { Events, MenuController, Platform } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { AppComponent } from './app.component';
+import { UserData } from './providers/user-data';
 
 describe('AppComponent', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    });
-    TestBed.compileComponents();
-  });
 
-  it('should create the app', async(() => {
+  let eventsSpy, menuSpy, routerSpy, userDataSpy, statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
+
+  beforeEach(async(() => {
+    eventsSpy = jasmine.createSpyObj('Events', ['subscribe']);
+    menuSpy = jasmine.createSpyObj('MenuController', ['toggle', 'enable']);
+    routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
+    userDataSpy = jasmine.createSpyObj('UserData', ['isLoggedIn', 'logout']);
+    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
+    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
+    platformReadySpy = Promise.resolve();
+    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
+
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        { provide: Events, useValue: eventsSpy },
+        { provide: MenuController, useValue: menuSpy },
+        { provide: Router, useValue: routerSpy },
+        { provide: UserData, useValue: userDataSpy },
+        { provide: StatusBar, useValue: statusBarSpy },
+        { provide: SplashScreen, useValue: splashScreenSpy },
+        { provide: Platform, useValue: platformSpy },
+      ],
+    }).compileComponents();
+  }));
+
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
+  });
 
-  it(`should have as title 'app works!'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
-  }));
+  it('should initialize the app', async () => {
+    TestBed.createComponent(AppComponent);
+    expect(platformSpy.ready).toHaveBeenCalled();
+    await platformReadySpy;
+    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
+    expect(splashScreenSpy.hide).toHaveBeenCalled();
+  });
 
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
-  }));
+  // TODO: add more tests!
+
 });
