@@ -6,7 +6,7 @@ threadsafe: true
 #  SPRING_PROFILES_ACTIVE: "staging"
 handlers:
 - url: /.*
-  script: src/index.html
+  script: /src/index.html
    
 manual_scaling: 
   instances: 1
