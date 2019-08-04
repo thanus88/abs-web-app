@@ -20,7 +20,8 @@
   <link rel="manifest" href="assets/manifest.json">
 
   <link rel="apple-touch-icon" href="assets/img/appicon.png">
-
+  
+  <meta name="google-signin-client_id" content="440220150966-ptsnd3hi9s56koqa4j48hdr34nu07k1i.apps.googleusercontent.com">
   <script>
     /*
      * if ('serviceWorker' in navigator) {
@@ -39,9 +40,22 @@
   <!-- Replace the API key with your own, see:
     https://developers.google.com/maps/documentation/javascript/get-api-key -->
   <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8pf6ZdFQj5qw7rc_HSGrhUwQKfIe9ICw&libraries=places"></script> -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkAcTA8zJOrO9dqxRUGdR90BTjpzk44DU&libraries=places"></script>
+  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkAcTA8zJOrO9dqxRUGdR90BTjpzk44DU&libraries=places"></script> -->
   <script src="assets/js/rss-parser.min.js"></script>
-
+<!--
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '501447963923481',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v4.0'
+      });
+    };
+</script>
+<script src="https://connect.facebook.net/th_TH/sdk.js"></script>
+-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>
