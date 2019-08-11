@@ -1,20 +1,9 @@
 runtime: python27
 api_version: 1
-threadsafe: yes
-
-#env_variables:
- # API_KEY: <API key for projects app engine>
-
+threadsafe: true
 handlers:
-  - url: /index.html
-    static_files: /index.html
-    upload: /index.html
-
-skip_files:
-  - e2e/
-  - node_modules/
-  - ^(.*/)?\..*$
-  - ^(.*/)?.*\.json$
-  - ^(.*/)?.*\.md$
-  - ^(.*/)?.*\.yaml$
-  - ^LICENSE
+- url: /
+  static_files: dist/index.html
+  upload: dist/index.html
+- url: /
+  static_dir: dist
