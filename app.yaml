@@ -6,35 +6,9 @@ threadsafe: yes
  # API_KEY: <API key for projects app engine>
 
 handlers:
-<<<<<<< HEAD
-- url: /.*
-  script: /src/index.html
-   
-manual_scaling: 
-  instances: 1
-# Application Resources
-#resources:
-#  cpu: 1
-#  memory_gb: 1
-#  disk_size_gb: 1
-#  volumes:
-#  - name: ramdisk1
-#    volume_type: tmpfs
-#    size_gb: 0.5
-# Automatic Scaling
-#automatic_scaling: 
-#  min_num_instances: 1 
-#  max_num_instances: 2 
-#  cool_down_period_sec: 180 
-#  cpu_utilization: 
-#    target_utilization: 0.6
-=======
-
   - url: /
-    static_files: src/index.html
-    upload: src/index.html
-  - url: /
-    static_dir: src
+    static_files: index.html
+    upload: index.html
 
 skip_files:
   - e2e/
@@ -45,4 +19,3 @@ skip_files:
   - ^(.*/)?.*\.md$
   - ^(.*/)?.*\.yaml$
   - ^LICENSE
->>>>>>> e8fe686e6d4f52c35bd746b28473d56288d5603c
