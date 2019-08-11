@@ -6,14 +6,13 @@ threadsafe: yes
  # API_KEY: <API key for projects app engine>
 
 handlers:
-  - url: /
-    static_files: index.html
-    upload: index.html
+  - url: /index.html
+    static_files: /index.html
+    upload: /index.html
 
 skip_files:
   - e2e/
   - node_modules/
-  - src/
   - ^(.*/)?\..*$
   - ^(.*/)?.*\.json$
   - ^(.*/)?.*\.md$
