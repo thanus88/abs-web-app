@@ -1,15 +1,12 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
+    <!--
     <ion-buttons slot="start">
       <ion-back-button text="Choice" defaultHref="/app/tabs/choice"></ion-back-button>
     </ion-buttons>
     <ion-title>{{session?.name}}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-toolbar>
-
-  <div>
+    -->
+    <div>
     <div style="padding: 10px;" >
       <ion-chip (click)="onClickFeedSource(item)" class="chip-outline ios ion-activatable hydrated" 
         *ngFor="let item of model.feedTypeSource.feedSource">
@@ -45,9 +42,17 @@
     <ion-searchbar (ionInput)="getItems($event)" (ionClear)="onSearchBarClear($event)" style="padding-bottom: 10px;" >
     </ion-searchbar>
   </ng-template>
-</ion-toolbar>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content item-height="80%" #content2 >
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="button-native" >
+      <ion-fab-button (click)=scrollToTop() >
+        <ion-icon name="arrow-dropup"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
       <ion-infinite-scroll (ionInfinite)="parseUrl()" >
         <ion-infinite-scroll-content loadingSpinner="bubbles" >
           <ion-card #item *ngFor="let entry of model.result.items" >

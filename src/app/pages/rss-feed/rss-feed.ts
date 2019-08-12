@@ -2,7 +2,7 @@ import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActivatedRoute } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-//import { RSSParser } from 'rss-parser';
+import { IonContent } from '@ionic/angular';
 
 declare var RSSParser;
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
@@ -13,6 +13,7 @@ const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
   templateUrl: 'rss-feed.html'
 })
 export class RssFeedPage {
+  @ViewChild(IonContent) content: IonContent;
   @ViewChild('targetUrl') targetUrl: string;
   slideOpts = {
     initialSlide: 1,
@@ -163,4 +164,8 @@ export class RssFeedPage {
   share(entry){}
 
   unread(entry){}
+
+  scrollToTop(){
+    this.content.scrollToTop(1500);
+  }
 }
