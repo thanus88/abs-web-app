@@ -17,12 +17,12 @@ export class AppComponent implements OnInit {
   appPages = [
     {
       title: 'Channal',
-      url: '/app/tabs/(choice:choice)',
+      url: '/app/tabs/choice',
       icon: 'md-easel'
     },
     {
       title: 'News',
-      url: '/app/tabs/(rss-feed:rss-feed)',
+      url: '/app/tabs/rss-feed',
       icon: 'logo-rss'
     },
      /*
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     */
     {
       title: 'About',
-      url: '/app/tabs/(about:about)',
+      url: '/app/tabs/about',
       icon: 'information-circle'
     }
   ];
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.userData.logout().then(() => {
-      return this.navigate('/app/tabs/(schedule:schedule)');
+      return this.navigate('/app/tabs/schedule:schedule');
     });
   }
 

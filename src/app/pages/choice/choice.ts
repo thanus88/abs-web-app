@@ -39,6 +39,6 @@ export class ChoicePage {
   }
   
   onRssFeed() {  //  Re Direct TO Signup page.
-    this.router.navigateByUrl('rss-feed');
+    this.router.navigateByUrl('/app/tabs/rss-feed');
   }
 }

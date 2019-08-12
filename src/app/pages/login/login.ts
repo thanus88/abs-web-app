@@ -59,7 +59,7 @@ export class LoginPage {
           res => {
             const email: string = this.login.email;
             this.userData.login(email);
-            this.router.navigateByUrl('/app/tabs/(schedule:schedule)');
+            this.router.navigateByUrl('/app/tabs/choice');
           },
           err => { // NOT_FOUND Exception.
               console.error(err);
@@ -97,7 +97,7 @@ export class LoginPage {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      this.router.navigateByUrl('/app/tabs/(rss-feed:rss-feed)');
+      this.router.navigateByUrl('/app/tabs/rss-feed');
     } else {
       // The person is not logged into your app or we are unable to tell.
       this.router.navigateByUrl('/signup');

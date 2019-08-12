@@ -14,11 +14,6 @@ import { RssFeedPage } from '../rss-feed/rss-feed';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/tabs/(choice:choice)',
-    pathMatch: 'full'
-  },
-  {
     path: 'tabs',
     component: TabsPage,
     children: [
@@ -64,12 +59,13 @@ const routes: Routes = [
         component: MapPage,
         outlet: 'map'
       }, 
+       */
       // tab four
       {
         path: 'about',
         component: TabsPage,
         outlet: 'about'
-      } */
+      }
     ]
   }
 ];
