@@ -9,10 +9,10 @@ const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 //const CORS_PROXY = "http://localhost:1337/";
 
 @Component({
-  selector: 'page-rss-feed',
-  templateUrl: 'rss-feed.html'
+  selector: 'page-video',
+  templateUrl: 'video.html'
 })
-export class RssFeedPage {
+export class VideoPage {
   @ViewChild(IonContent) content: IonContent;
   @ViewChild('targetUrl') targetUrl: string;
   slideOpts = {

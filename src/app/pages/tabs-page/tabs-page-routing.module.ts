@@ -26,6 +26,10 @@ const routes: Routes = [
         path: 'rss-feed',
         component: RssFeedPage,
       },
+      {
+        path: 'video',
+        component: RssFeedPage,
+      }
       // tab one
     /*  {
         path: 'schedule',
