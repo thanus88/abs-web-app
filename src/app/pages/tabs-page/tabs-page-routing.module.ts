@@ -29,7 +29,7 @@ const routes: Routes = [
       {
         path: 'video',
         component: RssFeedPage,
-      }
+      },
       // tab one
     /*  {
         path: 'schedule',
