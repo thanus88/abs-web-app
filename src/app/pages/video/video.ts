@@ -16,91 +16,14 @@ export class VideoPage {
   @ViewChild(IonContent) content: IonContent;
   @ViewChild('targetUrl') targetUrl: string;
   slideOpts = {
-    initialSlide: 1,
-    speed: 400
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay:true 
   };
   model = {
     defaultUrl : 'https://news.google.com/rss?hl=th&gl=TH&ceid=TH:th',
     targetUrl : null,
-    result : {},
-    feedSourceSelected : '',
-    feedTypeSource : {
-      feedTypes : [
-        {
-          code : '001',
-          descEn : 'News',
-          descTh : 'ข่าว'
-        }
-      ],
-      feedSource : [
-        {
-          venderName : 'sanook.com',
-          logoUrl : '',
-          types : [
-            {
-              descTh : 'ข่าวการเมือง',
-              descEn : 'Politic',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.politic.xml'
-            },
-            {
-              descTh : 'ข่าวบันเทิง',
-              descEn : 'Entertain',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.entertain.xml'
-            },
-            {
-              descTh : 'ข่าวอาชญากรรม',
-              descEn : 'Crime',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.crime.xml'
-            },
-            {
-              descTh : 'ข่าวต่างประเทศ',
-              descEn : 'World',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.world.xml'
-            },
-            {
-              descTh : 'ข่าวเศรษฐกิจ',
-              descEn : 'Economic',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.economic.xml'
-            }
-          ]
-        },
-        {
-          venderName : 'CH3',
-          logoUrl : '',
-           types : [
-            {
-              descTh : 'ข่าวการเมือง',
-              descEn : 'Politic',
-              url : 'http://news.ch3thailand.com/rss/PoliticsNews.rss'
-            },
-            {
-              descTh : 'ข่าวบันเทิง',
-              descEn : 'Entertain',
-              url : 'http://news.ch3thailand.com/rss/EntertainmentNews.rss'
-            },
-            {
-              descTh : 'ข่าวอาชญากรรม',
-              descEn : 'Crime',
-              url : 'http://news.ch3thailand.com/rss/CrimeNews.rss'
-            },
-            {
-              descTh : 'ข่าวต่างประเทศ',
-              descEn : 'World',
-              url : 'http://news.ch3thailand.com/rss/InternationalNews.rss'
-            },
-            {
-              descTh : 'ข่าวเศรษฐกิจ',
-              descEn : 'Economic',
-              url : 'http://news.ch3thailand.com/rss/EconomicNews.rss'
-            }
-          ]
-        },
-        {
-          venderName : 'Thairat',
-          logoUrl : ''
-        }
-      ]
-    }
+    result : {}
   }
   entries : Array<any> = [];
 
@@ -170,7 +93,7 @@ export class VideoPage {
   }
 
   onClickFeedSource(item){
-    this.model.feedSourceSelected = item;
+    //this.model.feedSourceSelected = item;
   }
 
   getItems(ev) {

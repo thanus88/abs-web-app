@@ -13,6 +13,7 @@ import { SpeakerDetailModule } from '../speaker-detail/speaker-detail.module';
 import { SpeakerListModule } from '../speaker-list/speaker-list.module'; */
 import { ChoiceModule } from '../choice/choice.module';
 import { RssFeedModule } from '../rss-feed/rss-feed.module';
+import { VideoModule } from '../video/video.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { RssFeedModule } from '../rss-feed/rss-feed.module';
     //SpeakerListModule,
     TabsPageRoutingModule,
     ChoiceModule,
-    RssFeedModule
+    RssFeedModule,
+    VideoModule
   ],
   declarations: [
     TabsPage,

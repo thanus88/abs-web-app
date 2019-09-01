@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ChoicePage } from './choice';
-import { RssFeedPage } from '../rss-feed/rss-feed';
 
 const routes: Routes = [
   {

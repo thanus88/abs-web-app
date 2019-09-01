@@ -11,6 +11,7 @@ import { TabsPage } from './tabs-page';
 //import { SpeakerListPage } from '../speaker-list/speaker-list';
 import { ChoicePage } from '../choice/choice';
 import { RssFeedPage } from '../rss-feed/rss-feed';
+import { VideoPage } from '../video/video';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
       },
       {
         path: 'video',
-        component: RssFeedPage,
+        component: VideoPage,
       },
       // tab one
     /*  {
