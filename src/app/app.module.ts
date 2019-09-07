@@ -9,6 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ParallaxHeaderDirective } from './directives/parallax-header.directive';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { AppComponent } from './app.component';
     IonicModule.forRoot(),
     IonicStorageModule.forRoot()
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent,ParallaxHeaderDirective],
   providers: [InAppBrowser, SplashScreen, StatusBar],
   bootstrap: [AppComponent]
 })

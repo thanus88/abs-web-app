@@ -171,6 +171,7 @@ export class RssFeedPage {
 
   onClickFeedSource(item){
     this.model.feedSourceSelected = item;
+    this.scrollToTop();
   }
 
   getItems(ev) {

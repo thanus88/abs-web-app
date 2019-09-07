@@ -1,13 +1,16 @@
 <ion-header >
   <ion-toolbar>
-    <!--
+    
     <ion-buttons slot="start">
       <ion-back-button text="Choice" defaultHref="/app/tabs/choice"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{session?.name}}</ion-title>
-    -->
-    <div>
-    <div style="padding: 10px;" >
+    <ion-title>{{'News'}}</ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-toolbar style="height: 10%">
+  <div style="padding: 10px;" >
       <ion-chip (click)="onClickFeedSource(item)" class="chip-outline ios ion-activatable hydrated" 
         *ngFor="let item of model.feedTypeSource.feedSource">
         <ion-avatar class="ios hydrated">
@@ -16,60 +19,54 @@
         <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s ios hydrated">{{item.venderName}}</ion-label>
       </ion-chip>
     </div>
+</ion-toolbar>
 
-    <div *ngIf="model.feedSourceSelected; then showfeedType"></div>
+<ion-content style="height: 90%" #content1 parallaxHeader [scrollEvents]="true">
+    
+    <div class="main-content" >
+      <div *ngIf="model.feedSourceSelected; then showfeedType"></div>
 
-    <ng-template #showfeedType>
-      <ion-slides pager="true"  [options]="slideOpts" >
-        <ion-slide #feedType *ngFor="let item of model.feedSourceSelected.types" >
-          <ion-card (click)="parseUrl(item.url)" >
-            <ion-item>
-              <ion-avatar>
-                <img src="https://s.isanook.com/sh/0/di/apple-touch-icon-precomposed.png">
-              </ion-avatar>
-              <ion-label>{{item.descTh}}</ion-label>
-            </ion-item>
-          </ion-card>
-        </ion-slide>
-      </ion-slides>
-    </ng-template>
+      <ng-template #showfeedType>
+        <ion-slides pager="true"  [options]="slideOpts" >
+          <ion-slide #feedType *ngFor="let item of model.feedSourceSelected.types" >
+            <ion-card (click)="parseUrl(item.url)" >
+              <ion-item>
+                <ion-avatar>
+                  <img src="https://s.isanook.com/sh/0/di/apple-touch-icon-precomposed.png">
+                </ion-avatar>
+                <ion-label>{{item.descTh}}</ion-label>
+              </ion-item>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ng-template>
 
-  </div>
+      <div *ngIf="model.result.items; then showSearchBar"></div>
 
-  <div *ngIf="model.result.items; then showSearchBar"></div>
-
-  <ng-template #showSearchBar>
-    <ion-searchbar (ionInput)="getItems($event)" (ionClear)="onSearchBarClear($event)" style="padding-bottom: 10px;" >
-    </ion-searchbar>
-  </ng-template>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content item-height="80%" #content2 >
-
+      <ng-template #showSearchBar>
+        <ion-searchbar (ionInput)="getItems($event)" (ionClear)="onSearchBarClear($event)" style="padding-bottom: 10px;" >
+        </ion-searchbar>
+      </ng-template>
+    </div>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="button-native" >
       <ion-fab-button (click)=scrollToTop() >
         <ion-icon name="arrow-dropup"></ion-icon>
       </ion-fab-button>
     </ion-fab>
 
-      <ion-infinite-scroll (ionInfinite)="parseUrl()" >
-        <ion-infinite-scroll-content loadingSpinner="bubbles" >
-          <ion-card #item *ngFor="let entry of model.result.items" >
-              <div *ngIf="entry.enclosure; then templateName">
-              </div>
+    <ion-card #item *ngFor="let entry of model.result.items" >
+        <div *ngIf="entry.enclosure; then templateName">
+        </div>
 
-              <ng-template #templateName>
-                <img [src]="entry.enclosure.url" />
-              </ng-template>
-              
-              <ion-card-header>
-                <ion-card-subtitle>{{entry.pubDate}}</ion-card-subtitle>
-                <a (click)="openUrl(entry)">
-                  <ion-card-title>{{entry.title}}</ion-card-title>
-                </a>
-              </ion-card-header>
-            </ion-card>
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+        <ng-template #templateName>
+          <img [src]="entry.enclosure.url" />
+        </ng-template>
+        
+        <ion-card-header>
+          <ion-card-subtitle>{{entry.pubDate}}</ion-card-subtitle>
+          <a (click)="openUrl(entry)">
+            <ion-card-title>{{entry.title}}</ion-card-title>
+          </a>
+        </ion-card-header>
+      </ion-card>
 </ion-content>

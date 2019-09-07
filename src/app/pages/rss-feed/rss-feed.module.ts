@@ -12,7 +12,7 @@ import { IonicModule } from '@ionic/angular';
     RssFeedPageRoutingModule
   ],
   declarations: [
-    RssFeedPage,
+    RssFeedPage
   ],
   entryComponents: [],
   bootstrap: [RssFeedPage]
