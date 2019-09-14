@@ -5,10 +5,12 @@
       <ion-back-button text="Choice" defaultHref="/app/tabs/choice"></ion-back-button>
     </ion-buttons>
     <ion-title>{{session?.name}}</ion-title>
+    <ion-searchbar id="search" (ionInput)="getItems($event)" (ionClear)="onSearchBarClear($event)" style="padding-bottom: 10px;" >
+        </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="button-native" >
       <ion-fab-button (click)=scrollToTop() >
@@ -16,13 +18,17 @@
       </ion-fab-button>
     </ion-fab>
 
-    <div>
-      <ion-slides [options]="slideOpts"  >
-        <ion-slide *ngFor="let item of [2]" >
-            <ion-item>
-                <ion-img src="assets/img/movie-studio/studio-logos-slice.jpg"  style="width: 100%; height: 100%;" imageViewer="assets/img/movie-studio/studio-logos-slice.jpg"></ion-img>
-            </ion-item>
-        </ion-slide>
-      </ion-slides>
-  </div>
+    <div *ngFor="let video of videos" class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow vh-50">
+      <a href="https://www.youtube.com/watch?v={{video.id.videoId}}" target="_blank">
+      <img [src]="video.snippet.thumbnails.medium.url" class="card-img-top" alt="..."></a>
+      <div class="card-body text-center">
+      <h5 class="card-title mb-0">
+      <a href="https://www.youtube.com/watch?v={{video.id.videoId}}">{{video.snippet.title}}
+      </a></h5>
+      <div class="card-text text-black-50">{{video.snippet.description.slice(0, 100)}}</div>
+      <p class="card-text">{{video.snippet.description}}</p>
+      </div>
+      </div>
+      </div>
 </ion-content>

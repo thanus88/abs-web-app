@@ -1,99 +1,67 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ConferenceData } from '../../providers/conference-data';
 import { ActivatedRoute } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { IonContent } from '@ionic/angular';
-
-declare var RSSParser;
-const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-//const CORS_PROXY = "http://localhost:1337/";
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import {Observable,of, from } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'page-video',
   templateUrl: 'video.html'
 })
 export class VideoPage {
+  apiKey : string = 'AIzaSyBI-I4jOgMCSmt6xBSpeS2uG5nm1Lc6b0Q';
+  videos : any = [];
   @ViewChild(IonContent) content: IonContent;
-  @ViewChild('targetUrl') targetUrl: string;
-  slideOpts = {
-    initialSlide: 0,
-    slidesPerView: 1,
-    autoplay:true 
-  };
-  model = {
-    defaultUrl : 'https://news.google.com/rss?hl=th&gl=TH&ceid=TH:th',
-    targetUrl : null,
-    result : {}
-  }
-  entries : Array<any> = [];
-
+  @ViewChild('search') search: string = 'Gym Song';
   constructor(
-    private dataProvider: ConferenceData,
-    private route: ActivatedRoute,
-    private iab: InAppBrowser
-  ) {}
-/*
+        public http: HttpClient,
+        public alertController: AlertController
+        ) { }
+  
+
+  getVideosForSearch(searchKey, maxResults): Observable<Object> {
+    let url = 'https://www.googleapis.com/youtube/v3/search?key=' + this.apiKey + '&q=' + searchKey + '&order=date&part=snippet';
+    return this.http.get(url)
+      .pipe(map((res) => {
+        return res;
+      }))
+  }
+
   ionViewWillEnter() {
-    this.dataProvider.load().subscribe((data: any) => {
-      if (
-        data &&
-        data.schedule &&
-        data.schedule[0] &&
-        data.schedule[0].groups
-      ) {
-        const sessionId = this.route.snapshot.paramMap.get('sessionId');
-        for (const group of data.schedule[0].groups) {
-          if (group && group.sessions) {
-            for (const session of group.sessions) {
-              if (session && session.id === sessionId) {
-                this.session = session;
-                break;
-              }
-            }
+    this.videos = [];
+    this.getVideosForSearch('Gym Song', 5)
+      .pipe()
+        .subscribe(res => {
+          for (let element of res["items"]) {
+            this.videos.push(element)
           }
-        }
-      }
+        },err => {
+        // Do stuff whith your error
+          console.log(err["error"]);
+          this.presentAlert();
+        });
+  }
+
+  scrollToTop(){
+    this.content.scrollToTop(1500);
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: 'Some Problem',
+      message: 'Under Contructions.',
+      buttons: ['OK']
     });
-  }
-*/
-  ionViewWillEnter() {
-    console.log('ionViewDidLoad RSSPage');
 
-  }
-  openUrl(entry){
-      console.log('openUrl');
-      this.iab.create(entry.link,"_system");
-
-  }
-  parseUrlWrapper(url){
-    console.log('parseUrlWrapper');
-    let parser = new RSSParser();
-    return new Promise((resolve,reject)=>{
-      parser.parseURL(CORS_PROXY + this.model.targetUrl, function(err, parsed) {
-          console.log(parsed);
-          if(err){
-            reject(err);
-          }
-          resolve(parsed);
-      });
-    });
-  }
-  parseUrl(url){
-    console.log('parseUrl');
-
-    if(!url){
-      url = this.model.defaultUrl;
-    } else {
-      this.model.targetUrl = url;
-    }
-    this.parseUrlWrapper(this.model.targetUrl).then((entries : any)=>{
-        this.model.result = entries;
-    })
-    
+    await alert.present();
   }
 
-  onClickFeedSource(item){
-    //this.model.feedSourceSelected = item;
+  onSearchBarClear(ev){
+    console.log('onSearchBarClear()..');
   }
 
   getItems(ev) {
@@ -101,21 +69,7 @@ export class VideoPage {
     let val = ev.target.value;
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
-      this.model.result['items'] = this.model.result['items'].filter((item) => {
-        return (item.title.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      
     }
-  }
-
-  onSearchBarClear(ev){
-    console.log(this.model.result['items']);
-  }
-
-  share(entry){}
-
-  unread(entry){}
-
-  scrollToTop(){
-    this.content.scrollToTop(1500);
   }
 }
