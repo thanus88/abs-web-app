@@ -9,8 +9,8 @@ import { UserData } from './user-data';
   providedIn: 'root'
 })
 export class AuthenService {
-  //public SERVICE_URL = 'https://8080-dot-6202853-dot-devshell.appspot.com';
-  public SERVICE_URL = 'http://localhost:1337/localhost:8084';
+  public SERVICE_URL = 'https://8080-dot-6202853-dot-devshell.appspot.com';
+  //public SERVICE_URL = 'http://localhost:1337/localhost:8080';
   //public SERVICE_URL = 'http://localhost:8084';
   public CUSTOMER_API = this.SERVICE_URL + '/customers';
   public LOGIN_API = this.SERVICE_URL + '/login';
