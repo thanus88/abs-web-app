@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { ChoicePage } from './choice';
 import { ChoicePageRoutingModule } from './choice-routing.module';
 import { RssFeedModule } from '../rss-feed/rss-feed.module';
+import { MapModule } from '../map/map.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { RssFeedModule } from '../rss-feed/rss-feed.module';
     FormsModule,
     IonicModule,
     ChoicePageRoutingModule,
-    RssFeedModule
+    RssFeedModule,
+    MapModule
   ],
   declarations: [ChoicePage],
   entryComponents: [],

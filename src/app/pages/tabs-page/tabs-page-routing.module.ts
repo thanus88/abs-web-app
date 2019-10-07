@@ -2,16 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TabsPage } from './tabs-page';
-
-//import { AboutPage } from '../about/about';
-//import { MapPage } from '../map/map';
-//import { SchedulePage } from '../schedule/schedule';
-//import { SessionDetailPage } from '../session-detail/session-detail';
-//import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
-//import { SpeakerListPage } from '../speaker-list/speaker-list';
 import { ChoicePage } from '../choice/choice';
 import { RssFeedPage } from '../rss-feed/rss-feed';
 import { VideoPage } from '../video/video';
+import { MapPage } from '../map/map';
 
 const routes: Routes = [
   {
@@ -30,6 +24,10 @@ const routes: Routes = [
       {
         path: 'video',
         component: VideoPage,
+      },
+      {
+        path: 'map',
+        component: MapPage,
       },
       // tab one
     /*  {

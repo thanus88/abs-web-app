@@ -1,0 +1,88 @@
+page-map {
+  .map-canvas {
+    position: relative;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: transparent;
+
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    z-index: 1000;
+  }
+
+  .show-map {
+    opacity: 1;
+  }
+
+  .pac-card {
+    margin: 10px 10px 100 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+    z-index: 1001;
+  }
+
+  .searchbar-ion {
+    z-index: 1001;
+    max-height: 100px;
+  }
+
+  .searchbar-left-aligned.sc-ion-searchbar-ios-h .searchbar-input.sc-ion-searchbar-ios {
+    padding-left: unset;
+    -webkit-padding-start: 30px;
+    padding-inline-start: 30px;
+}
+.searchbar-left-aligned.sc-ion-searchbar-ios-h .searchbar-input.sc-ion-searchbar-ios {
+    padding-left: 30px;
+}
+
+.searchbar-input.sc-ion-searchbar-ios {
+    padding-left: unset;
+    padding-right: unset;
+    -webkit-padding-start: 28px;
+    padding-inline-start: 28px;
+    -webkit-padding-end: 28px;
+    padding-inline-end: 28px;
+}
+.searchbar-input.sc-ion-searchbar-ios {
+    padding-left: 28px;
+    padding-right: 28px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 10px;
+    height: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    contain: strict;
+}
+.searchbar-input {
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    text-decoration: inherit;
+    text-overflow: inherit;
+    text-transform: inherit;
+    text-align: inherit;
+    white-space: inherit;
+    color: inherit;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: var(--background);
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+}
