@@ -1,19 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Map</ion-title>
+  <ion-toolbar >
+    <ion-searchbar (ngModel)="autocomplete.input" (ionInput)="updateSearchResults($event)" placeholder="Search for a place"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-toolbar>
-<!--  <ion-searchbar 
-    (setAddress)="getAddress($event)" type="search" class="searchbar-ion" #ionSearchBar >
-  </ion-searchbar> -->
-<input #searchPlaceText type="search" placeholder="ค้นหา สถานที่" class="searchbar-input" >
-</ion-toolbar>
-<ion-content >
+<ion-content>
 
-  <div #mapCanvas class="map-canvas" [hidden]="false" ></div>
+  <ion-list>
+    <ion-item *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)">
+      <ion-label>
+      {{ item.description }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
+  <div id='map'></div>
 </ion-content>
+
+<ion-footer>
+  <button class="geolocation-btn" ion-button full (click)="tryGeolocation()"> Try Geolocation </button>
+</ion-footer>

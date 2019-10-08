@@ -1,9 +1,6 @@
-import { Component, Renderer2, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ConferenceData } from '../../providers/conference-data';
-import { Platform } from '@ionic/angular';
-import { MapPlaceService } from '../../providers/MapPlaceService';
-import {_} from 'underscore';
-import { MapsPlaceData } from '../../interfaces/places';
+import { Component, NgZone,ViewEncapsulation } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation';
+import { LoadingController, Platform } from '@ionic/angular';
 
 declare var google: any;
 
@@ -12,157 +9,126 @@ declare var google: any;
   templateUrl: 'map.html',
   styleUrls: ['./map.scss'],
   encapsulation: ViewEncapsulation.None
+
 })
 export class MapPage {
 
-  @ViewChild('mapCanvas') mapElement: ElementRef;
-  @ViewChild('searchPlaceText') searchPlaceText: ElementRef;
-  //@ViewChild('searchPlaceBar') searchPlaceBar: ElementRef;
-  //@ViewChild('ionSearchBar') ionSearchBar: ElementRef;
-  searchCountryString = '';
-  autocomplete : any;
-  address : any;
+  map: any;
+  markers: any;
+  autocomplete: any;
+  GoogleAutocomplete: any;
+  GooglePlaces: any;
+  geocoder: any
+  autocompleteItems: any;
+  //loading: any;
 
   constructor(
-    public mapPlaceService: MapPlaceService,
-    public confData: ConferenceData,
     public platform: Platform,
-    private renderer: Renderer2
-  ) {}
-  ionViewDidEnter() {
-    this.confData.getMap().subscribe((mapData: any) => {
-      const mapEle = this.mapElement.nativeElement;
+    public zone: NgZone,
+    public loadingCtrl: LoadingController,
+    //public geolocation: Geolocation
+  ) {
+    this.platform.ready().then(()=>{
+      this.geocoder = new google.maps.Geocoder;
+      let elem = document.createElement("div")
+      this.GooglePlaces = new google.maps.places.PlacesService(elem);
+      this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+      this.autocomplete = {
+        input: ''
+      };
+      this.autocompleteItems = [];
+      this.markers = [];
+      //this.loading = this.loadingCtrl.create();
 
-      const map = new google.maps.Map(mapEle, {
-        //center: mapData.find((d: any) => d.center),
-        center: {lat: 43.071584, lng: -89.380120},
-        zIndex : 1000,
-        zoom: 16,
-        mapTypeId: 'roadmap'
-      });
-
-      mapData.forEach((markerData: any) => {
-        const infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${markerData.name}</h5>`
-        });
-
-        const marker = new google.maps.Marker({
-          position: markerData,
-          map,
-          title: markerData.name
-        });
-
-        marker.addListener('click', () => {
-          infoWindow.open(map, marker);
-        });
-      });
-
-      google.maps.event.addListenerOnce(map, 'idle', () => {
-        mapEle.classList.add('show-map');
-      });
-
-      let options = {
-        componentRestrictions: {country: 'th'}};
-      
-      // Create the search box and link it to the UI element.
-      const input = this.searchPlaceText.nativeElement;
-      const searchBox = new google.maps.places.SearchBox(input);
-
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchBox);
-        const root = this;
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', () => {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        let markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', () => {
-          const places = searchBox.getPlaces();
-          
-          if (places.length == 0) {
-            return;
-          }
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          let bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            let icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-            // Call service hear
-            /*
-            //------------------------------
-            console.log(place);
-            let mapsPlaceData = new MapsPlaceData();
-            _.extend(mapsPlaceData, place),
-            mapsPlaceData.photos_json = JSON.stringify(_.isEmpty(place.photos) ? place.photos : place.photos[0]);
-            mapsPlaceData.photos = JSON.stringify(_.isEmpty(place.photos) ? place.photos : place.photos[0].html_attributions[0]);
-            mapsPlaceData.reviews_json = JSON.stringify(_.isEmpty(place.reviews) ? place.reviews : place.reviews[0]);
-            mapsPlaceData.types_json = JSON.stringify(_.isEmpty(place.types) ? place.types : place.types[0]);
-            if(_.isObject(place.geometry)){
-              mapsPlaceData.geometry_json = JSON.stringify(_.isObject(place.geometry) ? place.geometry : {});
-              if(place.geometry.location){
-                mapsPlaceData.lat = place.geometry.location.lat();
-                mapsPlaceData.lng = place.geometry.location.lng();
-              }
-            }
-            mapsPlaceData.source_id = place.id;
-            root.mapPlaceService.save(mapsPlaceData).subscribe(
-              res => {
-                console.log(res);
-              },
-              err => {
-                  console.error(err);
-              }
-            );
-          //------------------------------
-          */
-          });
-          map.fitBounds(bounds);
-        }) ;
-
+      //this.tryGeolocation();
     });
   }
 
-  getItems(searchbar) {
-    // set q to the value of the searchbar
-    var q = searchbar.target.value;
-
-    // if the value is an empty string don't filter the items
-    
-
-    //this.searchPlaceText.nativeElement.value = q;
-    this.renderer.setProperty(this.searchPlaceText.nativeElement, 'value', q);
-    this.renderer.setProperty(this.searchPlaceText.nativeElement, 'focus', true);
+  ionViewDidEnter(){
+      // let infoWindow = new google.maps.InfoWindow({map: map});
+      //Set latitude and longitude of some place
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.9011, lng: -56.1645},
+      zoom: 15
+    });
   }
+
+  tryGeolocation(){
+    //this.loading.present();
+    this.clearMarkers();//remove previous markers
+    //set options.. 
+    let options = {
+           timeout: 5000, 
+           enableHighAccuracy: false, 
+           maximumAge: 0
+       }
+    //this.geolocation.getCurrentPosition((resp) => {   
+    navigator.geolocation.getCurrentPosition((resp) => {
+      let pos = {
+        lat: resp.coords.latitude,
+        lng: resp.coords.longitude
+      };
+      let marker = new google.maps.Marker({
+        position: pos,
+        map: this.map,
+        title: 'I am here!'
+      });
+      this.markers.push(marker);
+      this.map.setCenter(pos);
+      //this.loading.dismiss();
+    
+    },(error) => {
+      console.log('Error getting location', error);
+      //this.loading.dismiss();
+    },options);
+    
+  }
+
+  updateSearchResults(event){
+    console.log(event.target.value);
+    if (event.target.value == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+    this.GoogleAutocomplete.getPlacePredictions({ input: event.target.value },
+      (predictions, status) => {
+        this.autocompleteItems = [];
+        if(predictions){
+          this.zone.run(() => {
+            predictions.forEach((prediction) => {
+              this.autocompleteItems.push(prediction);
+            });
+          });
+        }
+    });
+  }
+
+  selectSearchResult(item){
+    this.clearMarkers();
+    this.autocompleteItems = [];
+
+    this.geocoder.geocode({'placeId': item.place_id}, (results, status) => {
+      if(status === 'OK' && results[0]){
+         let position = {
+             lat: results[0].geometry.location.lat,
+             lng: results[0].geometry.location.lng
+         };
+        let marker = new google.maps.Marker({
+          position: results[0].geometry.location,
+          map: this.map
+        });
+        this.markers.push(marker);
+        this.map.setCenter(results[0].geometry.location);
+      }
+    })
+  }
+
+  clearMarkers(){
+    for (var i = 0; i < this.markers.length; i++) {
+      console.log(this.markers[i])
+      this.markers[i].setMap(null);
+    }
+    this.markers = [];
+  }
+
 }

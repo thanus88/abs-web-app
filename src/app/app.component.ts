@@ -1,3 +1,4 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -31,12 +32,13 @@ export class AppComponent implements OnInit {
       url: '/app/tabs/(speakers:speakers)',
       icon: 'contacts'
     },
+    */
     {
       title: 'Map',
-      url: '/app/tabs/(map:map)',
+      url: '/app/tabs/map',
       icon: 'map'
     },
-    */
+    
     {
       title: 'About',
       url: '/app/tabs/about',
@@ -118,7 +120,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.userData.logout().then(() => {
-      return this.navigate('/app/tabs/schedule:schedule');
+      return this.navigate('/app/tabs/choice');
     });
   }
 
