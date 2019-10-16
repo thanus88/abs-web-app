@@ -1,11 +1,28 @@
+<!--
 <ion-header>
   <ion-toolbar >
     <ion-searchbar (ngModel)="autocomplete.input" (ionInput)="updateSearchResults($event)" placeholder="Search for a place"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
+-->
 <ion-content>
 
-  <ion-list>
+  <ion-fab vertical="center" horizontal="start" >
+      <ion-fab-button>
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button><ion-icon name="headset"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="bottom">
+        <ion-fab-button (click)="presentModal()" ><ion-icon name="search"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="end">
+        <ion-fab-button (click)="tryGeolocation()" ><ion-icon name="pin"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+
+  <ion-list *ngIf="false" >
     <ion-item *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)">
       <ion-label>
       {{ item.description }}
@@ -13,9 +30,6 @@
     </ion-item>
   </ion-list>
 
-  <div id='map'></div>
+  <div id='map'>
+  </div>
 </ion-content>
-
-<ion-footer>
-  <button class="geolocation-btn" ion-button full (click)="tryGeolocation()"> Try Geolocation </button>
-</ion-footer>

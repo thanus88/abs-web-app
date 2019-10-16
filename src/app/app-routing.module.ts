@@ -26,7 +26,9 @@ const routes: Routes = [
   {
     path: 'tutorial',
     loadChildren: './pages/tutorial/tutorial.module#TutorialModule'
-  }
+  },
+  { path: 'map-from-to', loadChildren: './pages/map-from-to/map-from-to.module#MapFromToPageModule' }
+
 ];
 
 @NgModule({

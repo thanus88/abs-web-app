@@ -1,6 +1,8 @@
 import { Component, NgZone,ViewEncapsulation } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LoadingController, Platform } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { MapFromToPage } from '../map-from-to/map-from-to.page';
 
 declare var google: any;
 
@@ -26,11 +28,12 @@ export class MapPage {
     public platform: Platform,
     public zone: NgZone,
     public loadingCtrl: LoadingController,
+    public modalController: ModalController
     //public geolocation: Geolocation
   ) {
     this.platform.ready().then(()=>{
       this.geocoder = new google.maps.Geocoder;
-      let elem = document.createElement("div")
+      let elem = document.createElement("divPlaces")
       this.GooglePlaces = new google.maps.places.PlacesService(elem);
       this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
       this.autocomplete = {
@@ -103,7 +106,27 @@ export class MapPage {
     });
   }
 
-  selectSearchResult(item){
+  selectSearchFromResult(item){
+    this.clearMarkers();
+    this.autocompleteItems = [];
+
+    this.geocoder.geocode({'placeId': item.place_id}, (results, status) => {
+      if(status === 'OK' && results[0]){
+         let position = {
+             lat: results[0].geometry.location.lat,
+             lng: results[0].geometry.location.lng
+         };
+        let marker = new google.maps.Marker({
+          position: results[0].geometry.location,
+          map: this.map
+        });
+        this.markers.push(marker);
+        this.map.setCenter(results[0].geometry.location);
+      }
+    })
+  }
+
+  selectSearchToResult(item){
     this.clearMarkers();
     this.autocompleteItems = [];
 
@@ -129,6 +152,18 @@ export class MapPage {
       this.markers[i].setMap(null);
     }
     this.markers = [];
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: MapFromToPage,
+      componentProps: {
+        'firstName': 'Douglas',
+        'lastName': 'Adams',
+        'middleInitial': 'N'
+      }
+    });
+    return await modal.present();
   }
 
 }
