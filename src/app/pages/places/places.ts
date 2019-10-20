@@ -2,12 +2,11 @@ import { Component, NgZone } from '@angular/core';
 import { ModalController, LoadingController } from '@ionic/angular';
 declare var google: any;
 @Component({
-  selector: 'map-from-to',
-  templateUrl: './map-from-to.page.html',
-  styleUrls: ['./map-from-to.page.scss'],
+  selector: 'places-map',
+  templateUrl: 'places.html',
+  styleUrls: ['.places.scss'],
 })
-export class MapFromToPage {
-
+export class PlacesPage {
   autocomplete: any;
   GoogleAutocomplete: any;
   GooglePlaces: any;
@@ -84,5 +83,4 @@ export class MapFromToPage {
       'dismissed': true
     });
   }
-
 }

@@ -1,10 +1,9 @@
-<!--
-<ion-header>
+
+<ion-header *ngIf="toggleSearchBar" >
   <ion-toolbar >
     <ion-searchbar (ngModel)="autocomplete.input" (ionInput)="updateSearchResults($event)" placeholder="Search for a place"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
--->
 <ion-content>
 
   <ion-fab vertical="center" horizontal="start" >
@@ -12,17 +11,17 @@
         <ion-icon name="share"></ion-icon>
       </ion-fab-button>
       <ion-fab-list side="top">
-        <ion-fab-button><ion-icon name="headset"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="setToggleSearchBar($event)" ><ion-icon name="search"></ion-icon></ion-fab-button>
       </ion-fab-list>
       <ion-fab-list side="bottom">
-        <ion-fab-button (click)="presentModal()" ><ion-icon name="search"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="tryDirection($event)" ><ion-icon name="car"></ion-icon></ion-fab-button>
       </ion-fab-list>
       <ion-fab-list side="end">
-        <ion-fab-button (click)="tryGeolocation()" ><ion-icon name="pin"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="tryGeolocation($event)" ><ion-icon name="pin"></ion-icon></ion-fab-button>
       </ion-fab-list>
     </ion-fab>
 
-  <ion-list *ngIf="false" >
+  <ion-list *ngIf="autocomplete && autocomplete.input" >
     <ion-item *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)">
       <ion-label>
       {{ item.description }}

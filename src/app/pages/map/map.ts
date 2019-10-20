@@ -1,8 +1,9 @@
 import { Component, NgZone,ViewEncapsulation } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation';
-import { LoadingController, Platform } from '@ionic/angular';
+//import { Geolocation } from '@ionic-native/geolocation';
+import { LoadingController, Platform, PopoverController, ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { MapFromToPage } from '../map-from-to/map-from-to.page';
+import { PopMapDirectionDetailPage } from '../templates/pop-map-direction-detail/pop-map-direction-detail.page';
 
 declare var google: any;
 
@@ -21,30 +22,45 @@ export class MapPage {
   GoogleAutocomplete: any;
   GooglePlaces: any;
   geocoder: any
-  autocompleteItems: any;
-  //loading: any;
+
+  directionsService: any;
+  directionsDisplay: any;
+  nearbyItems: any = new Array<any>();
+  autocompleteItems: any = new Array<any>();
+  toggleSearchBar: any;
+  searchFromToModel: any;
 
   constructor(
     public platform: Platform,
     public zone: NgZone,
     public loadingCtrl: LoadingController,
-    public modalController: ModalController
-    //public geolocation: Geolocation
+    public modalController: ModalController,
+    public popoverController: PopoverController,
+    public toastController: ToastController
   ) {
     this.platform.ready().then(()=>{
       this.geocoder = new google.maps.Geocoder;
       let elem = document.createElement("divPlaces")
       this.GooglePlaces = new google.maps.places.PlacesService(elem);
       this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-      this.autocomplete = {
-        input: ''
-      };
-      this.autocompleteItems = [];
-      this.markers = [];
+      this.directionsService = new google.maps.DirectionsService();
+      this.directionsDisplay = new google.maps.DirectionsRenderer();
       //this.loading = this.loadingCtrl.create();
-
-      //this.tryGeolocation();
+      this.onInitail();
     });
+  }
+
+  onInitail(){
+    this.autocompleteItems = [];
+      this.markers = [];
+      this.toggleSearchBar = false;
+      this.autocomplete = {
+        input: null
+      };
+      this.searchFromToModel = {
+        from: null,
+        to: null,
+      };
   }
 
   ionViewDidEnter(){
@@ -56,7 +72,7 @@ export class MapPage {
     });
   }
 
-  tryGeolocation(){
+  tryGeolocation(event){
     //this.loading.present();
     this.clearMarkers();//remove previous markers
     //set options.. 
@@ -84,17 +100,18 @@ export class MapPage {
       console.log('Error getting location', error);
       //this.loading.dismiss();
     },options);
-    
   }
 
   updateSearchResults(event){
     console.log(event.target.value);
     if (event.target.value == '') {
+      this.autocomplete.input = null;
       this.autocompleteItems = [];
       return;
     }
     this.GoogleAutocomplete.getPlacePredictions({ input: event.target.value },
       (predictions, status) => {
+        this.autocomplete.input = event.target.value;
         this.autocompleteItems = [];
         if(predictions){
           this.zone.run(() => {
@@ -106,42 +123,48 @@ export class MapPage {
     });
   }
 
-  selectSearchFromResult(item){
-    this.clearMarkers();
+  selectSearchResult(item){
+    //this.clearMarkers();
     this.autocompleteItems = [];
-
     this.geocoder.geocode({'placeId': item.place_id}, (results, status) => {
       if(status === 'OK' && results[0]){
-         let position = {
-             lat: results[0].geometry.location.lat,
-             lng: results[0].geometry.location.lng
-         };
         let marker = new google.maps.Marker({
           position: results[0].geometry.location,
           map: this.map
         });
+
+        this.GooglePlaces.nearbySearch({
+          location: results[0].geometry.location,
+          radius: '500',
+          types: ['restaurant'], //check other types here https://developers.google.com/places/web-service/supported_types
+          // key: 'YOUR_KEY_HERE'
+        }, (near_places) => {
+          this.zone.run(() => {
+            this.nearbyItems = [];
+            for (var i = 0; i < near_places.length; i++) {
+              this.nearbyItems.push(near_places[i]);
+            }
+            //this.loading.dismiss();
+          });
+        })
+
         this.markers.push(marker);
         this.map.setCenter(results[0].geometry.location);
-      }
-    })
-  }
 
-  selectSearchToResult(item){
-    this.clearMarkers();
-    this.autocompleteItems = [];
-
-    this.geocoder.geocode({'placeId': item.place_id}, (results, status) => {
-      if(status === 'OK' && results[0]){
-         let position = {
-             lat: results[0].geometry.location.lat,
-             lng: results[0].geometry.location.lng
-         };
-        let marker = new google.maps.Marker({
-          position: results[0].geometry.location,
-          map: this.map
-        });
-        this.markers.push(marker);
-        this.map.setCenter(results[0].geometry.location);
+        if(!this.searchFromToModel.from){
+          this.searchFromToModel.from = {
+            address: results[0].formatted_address,
+            lat: results[0].geometry.location.lat,
+            lng: results[0].geometry.location.lng
+          };
+        } else if (!this.searchFromToModel.to) {
+          this.searchFromToModel.to = {
+            address: results[0].formatted_address,
+            lat: results[0].geometry.location.lat,
+            lng: results[0].geometry.location.lng
+          };
+        }
+        this.autocomplete.input = null;
       }
     })
   }
@@ -164,6 +187,70 @@ export class MapPage {
       }
     });
     return await modal.present();
+  }
+
+  setToggleSearchBar(event){
+    this.toggleSearchBar = !this.toggleSearchBar;
+    if(!this.searchFromToModel.from){
+      this.searchFromToModel = {
+        from:null,
+        to:null
+      };
+    }
+  }
+
+  tryDirection(event){
+    this.directionsDisplay.setMap(this.map);
+    this.directionsService.route({
+      origin: this.searchFromToModel.from.address,
+      destination: this.searchFromToModel.to.address,
+      travelMode: 'DRIVING'
+    }, (response, status) => {
+      if (status === 'OK') {
+        console.log(response);
+        this.directionsDisplay.setDirections(response);
+        this.searchFromToModel.route = response.routes[0].legs[0];
+        this.presentToastWithOptions(event);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }     
+    });
+  }
+
+  async presentToastWithOptions(event) {
+    const toast = await this.toastController.create({
+      header: 'เส้นทาง : ',
+      message: this.searchFromToModel.from.address+ ' To '+this.searchFromToModel.to.address,
+      position: 'bottom',
+      duration: 10000,
+      buttons: [
+        {
+          side: 'start',
+          icon: 'star',
+          text: 'See More',
+          handler: () => {
+            console.log('See More clicked');
+            this.presentPopover(event);
+          }
+        }, {
+          text: 'Done',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    toast.present();
+  }
+
+  async presentPopover(event: any) {
+    const popover = await this.popoverController.create({
+      component: PopMapDirectionDetailPage,
+      event: event,
+      translucent: true
+    });
+    return await popover.present();
   }
 
 }
