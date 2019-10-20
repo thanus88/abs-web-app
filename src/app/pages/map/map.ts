@@ -229,6 +229,7 @@ export class MapPage {
       message: this.searchFromToModel.from.address+ ' To '+this.searchFromToModel.to.address,
       position: 'bottom',
       duration: 10000,
+      translucent: true,
       buttons: [
         {
           side: 'start',

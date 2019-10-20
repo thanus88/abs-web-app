@@ -13,8 +13,10 @@ page-map {
 }
 
 .custom-modal-css {
+  //background-image: url('../../assets/img/movie-studio/learn-community.png');
   --border-radius: 25px!important;
-  --max-height: 70%;
-  --max-width: 90%;
-  --background: var(--ion-background-color, rgba(0, 0, 0, 0.8)) !important;
+  --max-height: 50%;
+  --max-width: 96%;
+  --ion-background-color :  rgba(240, 240, 240, 0.5) !important;
+  --background: var(--ion-background-color, rgba(240, 240, 240, 0.5)) !important;
 }
