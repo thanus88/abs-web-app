@@ -7,18 +7,25 @@
 <ion-content>
 
   <ion-fab vertical="center" horizontal="start" >
+    <ion-fab-button>
+      <ion-icon name="share"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="setToggleSearchBar($event)" ><ion-icon name="search"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="tryDirection($event)" ><ion-icon name="car"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="end">
+      <ion-fab-button (click)="tryGeolocation($event)" ><ion-icon name="pin"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <!-- fab placed to the (vertical) center and start -->
+  <ion-fab *ngIf="searchFromToModel && searchFromToModel.to" vertical="bottom" horizontal="start" edge >
       <ion-fab-button>
-        <ion-icon name="share"></ion-icon>
+        <ion-icon name="chatboxes" (click)="presentModal($event)" ></ion-icon>
       </ion-fab-button>
-      <ion-fab-list side="top">
-        <ion-fab-button (click)="setToggleSearchBar($event)" ><ion-icon name="search"></ion-icon></ion-fab-button>
-      </ion-fab-list>
-      <ion-fab-list side="bottom">
-        <ion-fab-button (click)="tryDirection($event)" ><ion-icon name="car"></ion-icon></ion-fab-button>
-      </ion-fab-list>
-      <ion-fab-list side="end">
-        <ion-fab-button (click)="tryGeolocation($event)" ><ion-icon name="pin"></ion-icon></ion-fab-button>
-      </ion-fab-list>
     </ion-fab>
 
   <ion-list *ngIf="autocomplete && autocomplete.input" >

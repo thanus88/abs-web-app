@@ -1,19 +1,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Detail</ion-title>
+      <ion-button (click)="close()" slot="end" fill="clear" > Close </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-    <ion-list lines="inset">
-        <ion-item>
-          <ion-label>Inset Lines Item 1</ion-label>
-        </ion-item>
+      <ion-item-group>
+        <ion-item-divider>
+            <ion-label>{{this.props.from.address}}</ion-label> To <ion-label>{{this.props.to.address}}</ion-label>
+        </ion-item-divider>
       
         <ion-item>
-          <ion-label>Inset Lines Item 2</ion-label>
+          <ion-label>{{this.props.route.distance.text}}</ion-label>
         </ion-item>
-      </ion-list>
+        <ion-item>
+            <ion-label>{{this.props.route.duration.text}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>ดูเส้นทางอื่น</ion-label>
+        </ion-item>
+      </ion-item-group>
 
 </ion-content>

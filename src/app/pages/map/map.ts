@@ -75,6 +75,7 @@ export class MapPage {
   tryGeolocation(event){
     //this.loading.present();
     this.clearMarkers();//remove previous markers
+    this.directionsDisplay.setMap(null);
     //set options.. 
     let options = {
            timeout: 5000, 
@@ -177,15 +178,20 @@ export class MapPage {
     this.markers = [];
   }
 
-  async presentModal() {
+  async presentModal(event) {
+
     const modal = await this.modalController.create({
-      component: MapFromToPage,
-      componentProps: {
-        'firstName': 'Douglas',
-        'lastName': 'Adams',
-        'middleInitial': 'N'
+      component: PopMapDirectionDetailPage,
+      cssClass: 'custom-modal-css',
+      componentProps: {props : this.searchFromToModel}
+    });
+   
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        this.searchFromToModel = dataReturned.data;
       }
     });
+
     return await modal.present();
   }
 
@@ -230,7 +236,7 @@ export class MapPage {
           text: 'See More',
           handler: () => {
             console.log('See More clicked');
-            this.presentPopover(event);
+            this.presentModal(event);
           }
         }, {
           text: 'Done',

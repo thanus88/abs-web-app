@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'pop-map-direction-detail',
@@ -8,19 +8,17 @@ import { PopoverController, NavParams } from '@ionic/angular';
 })
 export class PopMapDirectionDetailPage {
 
-  message = '';
-  pop: PopoverController;
+  props: any;
 
-  constructor(navParams: NavParams) {
-    this.message = navParams.get('message');
-    this.pop = navParams.get('popoverController');
+  constructor(
+    private modalCtrl: ModalController,
+    private navParams: NavParams
+    ) {
+    this.props = navParams.get('props');
   }
 
   close() {
-    this.pop.dismiss();
-  }
-
-  ngOnInit() {
+    this.modalCtrl.dismiss(this.props);
   }
 
 }

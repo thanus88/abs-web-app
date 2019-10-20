@@ -11,3 +11,10 @@ page-map {
   margin: 0px;
   padding: 0px;
 }
+
+.custom-modal-css {
+  --border-radius: 25px!important;
+  --max-height: 70%;
+  --max-width: 90%;
+  --background: var(--ion-background-color, rgba(0, 0, 0, 0.8)) !important;
+}
