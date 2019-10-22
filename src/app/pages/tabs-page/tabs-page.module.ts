@@ -8,6 +8,8 @@ import { ChoiceModule } from '../choice/choice.module';
 import { RssFeedModule } from '../rss-feed/rss-feed.module';
 import { VideoModule } from '../video/video.module';
 import { MapModule } from '../map/map.module';
+import { MapFromToPageModule } from '../map-from-to/map-from-to.module';
+import { PopMapDirectionDetailPageModule} from '../templates/pop-map-direction-detail/pop-map-direction-detail.module';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { MapModule } from '../map/map.module';
     TabsPageRoutingModule,
     ChoiceModule,
     RssFeedModule,
-    VideoModule
+    VideoModule,
+    MapFromToPageModule,
+    PopMapDirectionDetailPageModule
   ],
   declarations: [
     TabsPage,

@@ -1,11 +1,34 @@
-<ion-header>
+
+<ion-header *ngIf="toggleSearchBar" >
   <ion-toolbar >
     <ion-searchbar (ngModel)="autocomplete.input" (ionInput)="updateSearchResults($event)" placeholder="Search for a place"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content>
 
-  <ion-list>
+  <ion-fab vertical="center" horizontal="start" >
+    <ion-fab-button>
+      <ion-icon name="walk"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="setToggleSearchBar($event)" color="success" ><ion-icon name="search"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="tryDirection($event)" color="warning" ><ion-icon name="car"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="end">
+      <ion-fab-button (click)="tryGeolocation($event)" color="danger" ><ion-icon name="pin"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <!-- fab placed to the (vertical) center and start -->
+  <ion-fab *ngIf="searchFromToModel && searchFromToModel.to" vertical="bottom" horizontal="start" >
+      <ion-fab-button>
+        <ion-icon name="git-compare" (click)="presentModal($event)" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  <ion-list *ngIf="autocomplete && autocomplete.input" >
     <ion-item *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)">
       <ion-label>
       {{ item.description }}
@@ -13,9 +36,6 @@
     </ion-item>
   </ion-list>
 
-  <div id='map'></div>
+  <div id='map'>
+  </div>
 </ion-content>
-
-<ion-footer>
-  <button class="geolocation-btn" ion-button full (click)="tryGeolocation()"> Try Geolocation </button>
-</ion-footer>

@@ -36,3 +36,16 @@ UserInterfaceState.xcuserstate
 
 .node_modules/
 package-lock.json
+gradlew.bat
+gradlew
+gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.jar
+.gradle/buildOutputCleanup/outputFiles.bin
+.gradle/buildOutputCleanup/cache.properties
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/5.4.1/gc.properties
+.gradle/5.4.1/fileHashes/fileHashes.lock
+.gradle/5.4.1/executionHistory/executionHistory.lock
+.gradle/5.4.1/executionHistory/executionHistory.bin
+.gradle/5.4.1/fileHashes/fileHashes.bin
+.gradle/5.4.1/fileChanges/last-build.bin
