@@ -6,6 +6,7 @@ import { ChoicePage } from '../choice/choice';
 import { RssFeedPage } from '../rss-feed/rss-feed';
 import { VideoPage } from '../video/video';
 import { MapPage } from '../map/map';
+import { PlacesPage } from '../places/places';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'map',
         component: MapPage,
+      },
+      {
+        path: 'places',
+        component: PlacesPage,
       },
       // tab one
     /*  {

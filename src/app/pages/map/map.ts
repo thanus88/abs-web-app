@@ -4,6 +4,7 @@ import { LoadingController, Platform, PopoverController, ToastController } from 
 import { ModalController } from '@ionic/angular';
 import { MapFromToPage } from '../map-from-to/map-from-to.page';
 import { PopMapDirectionDetailPage } from '../templates/pop-map-direction-detail/pop-map-direction-detail.page';
+import { PlacesPage } from '../places/places';
 
 declare var google: any;
 
@@ -28,7 +29,8 @@ export class MapPage {
   nearbyItems: any = new Array<any>();
   autocompleteItems: any = new Array<any>();
   toggleSearchBar: any;
-  searchFromToModel: any;
+  searchStartEndModel: any;
+  searchPlacesModel: any;
 
   constructor(
     public platform: Platform,
@@ -57,9 +59,9 @@ export class MapPage {
       this.autocomplete = {
         input: null
       };
-      this.searchFromToModel = {
-        from: null,
-        to: null,
+      this.searchStartEndModel = {
+        start: null,
+        end: null,
       };
   }
 
@@ -152,14 +154,14 @@ export class MapPage {
         this.markers.push(marker);
         this.map.setCenter(results[0].geometry.location);
 
-        if(!this.searchFromToModel.from){
-          this.searchFromToModel.from = {
+        if(!this.searchStartEndModel.start){
+          this.searchStartEndModel.start = {
             address: results[0].formatted_address,
             lat: results[0].geometry.location.lat,
             lng: results[0].geometry.location.lng
           };
-        } else if (!this.searchFromToModel.to) {
-          this.searchFromToModel.to = {
+        } else if (!this.searchStartEndModel.end) {
+          this.searchStartEndModel.end = {
             address: results[0].formatted_address,
             lat: results[0].geometry.location.lat,
             lng: results[0].geometry.location.lng
@@ -178,29 +180,12 @@ export class MapPage {
     this.markers = [];
   }
 
-  async presentModal(event) {
-
-    const modal = await this.modalController.create({
-      component: PopMapDirectionDetailPage,
-      cssClass: 'custom-modal-css',
-      componentProps: {props : this.searchFromToModel}
-    });
-   
-    modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned !== null) {
-        this.searchFromToModel = dataReturned.data;
-      }
-    });
-
-    return await modal.present();
-  }
-
   setToggleSearchBar(event){
     this.toggleSearchBar = !this.toggleSearchBar;
-    if(!this.searchFromToModel.from){
-      this.searchFromToModel = {
-        from:null,
-        to:null
+    if(!this.searchStartEndModel.start){
+      this.searchStartEndModel = {
+        start:null,
+        end:null
       };
     }
   }
@@ -208,14 +193,14 @@ export class MapPage {
   tryDirection(event){
     this.directionsDisplay.setMap(this.map);
     this.directionsService.route({
-      origin: this.searchFromToModel.from.address,
-      destination: this.searchFromToModel.to.address,
+      origin: this.searchStartEndModel.start.address,
+      destination: this.searchStartEndModel.end.address,
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
         console.log(response);
         this.directionsDisplay.setDirections(response);
-        this.searchFromToModel.route = response.routes[0].legs[0];
+        this.searchStartEndModel.route = response.routes[0].legs[0];
         this.presentToastWithOptions(event);
       } else {
         window.alert('Directions request failed due to ' + status);
@@ -226,7 +211,7 @@ export class MapPage {
   async presentToastWithOptions(event) {
     const toast = await this.toastController.create({
       header: 'เส้นทาง : ',
-      message: this.searchFromToModel.from.address+ ' To '+this.searchFromToModel.to.address,
+      message: this.searchStartEndModel.start.address+ ' To '+this.searchStartEndModel.end.address,
       position: 'bottom',
       duration: 10000,
       translucent: true,
@@ -237,7 +222,7 @@ export class MapPage {
           text: 'See More',
           handler: () => {
             console.log('See More clicked');
-            this.presentModal(event);
+            this.presentStartEndModal(event);
           }
         }, {
           text: 'Done',
@@ -258,6 +243,40 @@ export class MapPage {
       translucent: true
     });
     return await popover.present();
+  }
+
+  async presentModalSearchPlaces(event) {
+
+    const modal = await this.modalController.create({
+      component: PlacesPage,
+      cssClass: 'modal-places-css',
+      componentProps: {props : this.searchPlacesModel}
+    });
+   
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        this.searchPlacesModel = dataReturned.data;
+      }
+    });
+
+    return await modal.present();
+  }
+
+  async presentStartEndModal(event) {
+
+    const modal = await this.modalController.create({
+      component: PopMapDirectionDetailPage,
+      cssClass: 'modal-start-end-css',
+      componentProps: {props : this}
+    });
+   
+    modal.onDidDismiss().then((dataReturned : any) => {
+      if (dataReturned !== null) {
+        //this.searchStartEndModel = dataReturned.searchStartEndModel;
+      }
+    });
+
+    return await modal.present();
   }
 
 }

@@ -22,19 +22,19 @@
   </ion-fab>
 
   <!-- fab placed to the (vertical) center and start -->
-  <ion-fab *ngIf="searchFromToModel && searchFromToModel.to" vertical="bottom" horizontal="start" >
-      <ion-fab-button>
-        <ion-icon name="git-compare" (click)="presentModal($event)" ></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+  <ion-fab vertical="bottom" horizontal="start" >
+    <ion-fab-button>
+      <ion-icon name="git-compare" (click)="presentStartEndModal($event)" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-  <ion-list *ngIf="autocomplete && autocomplete.input" >
-    <ion-item *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)">
-      <ion-label>
-      {{ item.description }}
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-fab vertical="bottom" horizontal="center" >
+    <ion-fab-button>
+      <ion-icon name="business" (click)="presentModalSearchPlaces($event)" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  
 
   <div id='map'>
   </div>

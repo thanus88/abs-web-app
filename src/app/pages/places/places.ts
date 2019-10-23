@@ -4,7 +4,7 @@ declare var google: any;
 @Component({
   selector: 'places-map',
   templateUrl: 'places.html',
-  styleUrls: ['.places.scss'],
+  styleUrls: ['places.scss'],
 })
 export class PlacesPage {
   autocomplete: any;

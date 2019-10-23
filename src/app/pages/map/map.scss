@@ -12,10 +12,19 @@ page-map {
   padding: 0px;
 }
 
-.custom-modal-css {
+.modal-start-end-css {
   //background-image: url('../../assets/img/movie-studio/learn-community.png');
   --border-radius: 25px!important;
   --max-height: 50%;
+  --max-width: 96%;
+  --ion-background-color :  rgba(240, 240, 240, 0.5) !important;
+  --background: var(--ion-background-color, rgba(240, 240, 240, 0.5)) !important;
+}
+
+.modal-places-css {
+  //background-image: url('../../assets/img/movie-studio/learn-community.png');
+  --border-radius: 25px!important;
+  --max-height: 80%;
   --max-width: 96%;
   --ion-background-color :  rgba(240, 240, 240, 0.5) !important;
   --background: var(--ion-background-color, rgba(240, 240, 240, 0.5)) !important;

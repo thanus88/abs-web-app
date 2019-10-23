@@ -1,21 +1,23 @@
 <ion-header>
   <ion-toolbar >
-    <ion-searchbar (ngModel)="autocomplete.input" (ionInput)="updateSearchResults($event)" placeholder="Find Restaurants"></ion-searchbar>
+    <ion-searchbar (ngModel)="searchPlacesModel.input" (ionInput)="updateSearchResults($event)" placeholder="Find places"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list >
     <ion-item *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)">
-      {{ item.description }}
+      <ion-text color="dark">
+        <h5>{{ item.description }}</h5>
+      </ion-text>
     </ion-item>
   </ion-list>
   <ion-grid *ngIf="nearbyItems.length == 0">
     <ion-row>
       <ion-col col-12>
-        <h3>
-          Please type a place on the Search bar to see nearby Restaurants
-        </h3>
+          <ion-text color="light">
+            <h4>Please type a place on the Search bar to see nearby Restaurants</h4>
+          </ion-text>
       </ion-col>
     </ion-row>
   </ion-grid>
