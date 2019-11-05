@@ -8,33 +8,18 @@
 
   <ion-fab vertical="center" horizontal="start" >
     <ion-fab-button>
-      <ion-icon name="walk"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button (click)="setToggleSearchBar($event)" color="success" ><ion-icon name="search"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="presentModalSearchPlaces($event)" color="success" ><ion-icon name="search"></ion-icon></ion-fab-button>
     </ion-fab-list>
     <ion-fab-list side="bottom">
-      <ion-fab-button (click)="tryDirection($event)" color="warning" ><ion-icon name="car"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="presentStartEndModal($event)" color="warning" ><ion-icon name="car"></ion-icon></ion-fab-button>
     </ion-fab-list>
     <ion-fab-list side="end">
       <ion-fab-button (click)="tryGeolocation($event)" color="danger" ><ion-icon name="pin"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
-
-  <!-- fab placed to the (vertical) center and start -->
-  <ion-fab vertical="bottom" horizontal="start" >
-    <ion-fab-button>
-      <ion-icon name="git-compare" (click)="presentStartEndModal($event)" ></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  <ion-fab vertical="bottom" horizontal="center" >
-    <ion-fab-button>
-      <ion-icon name="business" (click)="presentModalSearchPlaces($event)" ></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  
 
   <div id='map'>
   </div>
