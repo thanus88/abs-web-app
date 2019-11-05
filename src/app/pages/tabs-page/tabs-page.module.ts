@@ -11,6 +11,7 @@ import { MapModule } from '../map/map.module';
 import { PlacesPageModule } from '../places/places.module';
 import { MapFromToPageModule } from '../map-from-to/map-from-to.module';
 import { PopMapDirectionDetailPageModule} from '../templates/pop-map-direction-detail/pop-map-direction-detail.module';
+import { RestaurantPageModule } from '../restaurant/restaurant.module';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { PopMapDirectionDetailPageModule} from '../templates/pop-map-direction-d
     VideoModule,
     MapFromToPageModule,
     PopMapDirectionDetailPageModule,
-    PlacesPageModule
+    PlacesPageModule,
+    RestaurantPageModule
   ],
   declarations: [
     TabsPage,

@@ -6,6 +6,7 @@ import { ChoicePage } from './choice';
 import { ChoicePageRoutingModule } from './choice-routing.module';
 import { RssFeedModule } from '../rss-feed/rss-feed.module';
 import { MapModule } from '../map/map.module';
+import { RestaurantPageModule } from '../restaurant/restaurant.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { MapModule } from '../map/map.module';
     IonicModule,
     ChoicePageRoutingModule,
     RssFeedModule,
-    MapModule
+    MapModule,
+    RestaurantPageModule
   ],
   declarations: [ChoicePage],
   entryComponents: [],

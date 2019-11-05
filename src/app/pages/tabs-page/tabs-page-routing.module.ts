@@ -7,6 +7,7 @@ import { RssFeedPage } from '../rss-feed/rss-feed';
 import { VideoPage } from '../video/video';
 import { MapPage } from '../map/map';
 import { PlacesPage } from '../places/places';
+import { RestaurantPage } from '../restaurant/restaurant.page';
 
 const routes: Routes = [
   {
@@ -34,12 +35,11 @@ const routes: Routes = [
         path: 'places',
         component: PlacesPage,
       },
-      // tab one
-    /*  {
-        path: 'schedule',
-        component: SchedulePage,
-        outlet: 'schedule'
+      {
+        path: 'restaurant',
+        component: RestaurantPage
       },
+      /*
       {
         path: 'session/:sessionId',
         component: SessionDetailPage,
