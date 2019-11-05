@@ -28,40 +28,23 @@
     </div> 
 </ion-toolbar>
 
-<ion-content id="fhm_page">   
-        
-        <div class="fhm_container"> 
-            <div class="fhm_row">  
-                <div class="fhm_item">  
-                    <span (click)="onRssFeed()" >
-                        <ion-icon name="logo-rss"></ion-icon>
-                    </span>  
-                </div>  
-                <div class="fhm_item">  
-                    <span (click)="onVideo()" >
-                        <ion-icon name="film"></ion-icon>
-                    </span>  
-                </div>  
-            </div>
-            <!--   
-            <div class="fhm_row">  
-                <div class="fhm_item fhm_item3">  
-                    <span><ion-icon name="musical-notes"></ion-icon></span>  
-                </div>  
-                <div class="fhm_item fhm_item4">  
-                    <span><ion-icon name="pin"></ion-icon></span>  
-                </div>  
-            </div>
-             
-            <div class="fhm_row">  
-                <div class="fhm_item fhm_item5">  
-                    <span><ion-icon name="subway"></ion-icon></span>  
-                </div>  
-                <div class="fhm_item fhm_item6">  
-                    <span><ion-icon name="logo-bitcoin"></ion-icon></span>  
-                </div>  
-            </div>
-            -->   
-        </div>
-         
-    </ion-content>
+<ion-content>
+    <ion-grid class="mygrid" padding>
+        <ion-row>
+            <ion-col>
+                <img width="200" (click)="onRssFeed()"  src="../../../assets/img/home/btn1.svg" >
+            </ion-col>
+            <ion-col>
+                <img width="200" (click)="onRssFeed()" src="../../../assets/img/home/btn2.svg" >
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <img width="200" (click)="onRssFeed()"  src="../../../assets/img/home/btn3.svg" >
+            </ion-col>
+            <ion-col>
+                <img width="200" (click)="onRssFeed()" src="../../../assets/img/home/btn4.svg" >
+            </ion-col>
+        </ion-row>
+    </ion-grid> 
+</ion-content>
