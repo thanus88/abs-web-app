@@ -42,6 +42,10 @@ export class ChoicePage {
     this.router.navigateByUrl('/app/tabs/rss-feed');
   }
 
+  onMap (){
+    this.router.navigateByUrl('/app/tabs/map');
+  }
+
   onVideo (){
     this.router.navigateByUrl('/app/tabs/video');
   }
