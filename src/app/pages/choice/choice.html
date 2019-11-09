@@ -13,55 +13,54 @@
 </ion-header>
 
 <ion-toolbar>
-    <div>  
-         <ion-card>
-            <img src="assets/img/movie-studio/credit-card.jpg" />  
-            <ion-card-header>
-                <ion-card-subtitle>Thanuwat</ion-card-subtitle>
-                <ion-card-title>฿ 5000</ion-card-title>
-            </ion-card-header>
 
-            <ion-card-content>
-                เติมเงิน <ion-card-title> <ion-icon name="add-circle-outline"></ion-icon></ion-card-title>
-            </ion-card-content>
-        </ion-card>
-    </div> 
+    <ion-slides pager="true" [options]="slideOpts" pager="true" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)" >
+        <ion-slide >
+            <img src="assets/img/movie-studio/food-menu-1.jpg" />
+        </ion-slide>
+        <ion-slide >
+            <img src="assets/img/movie-studio/food-menu-2.jpg" />
+        </ion-slide>
+        <ion-slide >
+            <img src="assets/img/movie-studio/food-menu-3.jpg" />
+        </ion-slide>
+        <ion-slide>
+            <img src="assets/img/movie-studio/food-menu-4.jpg" />
+        </ion-slide>
+    </ion-slides>
+    <!--
+    <ion-card>
+        <img width="300" height="200" src="assets/img/movie-studio/credit-card.svg" />
+        
+        <ion-card-header>
+            <ion-card-subtitle>Thanuwat</ion-card-subtitle>
+            <ion-card-title>฿ 5000</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            เติมเงิน <ion-card-title> <ion-icon name="add-circle-outline"></ion-icon></ion-card-title>
+        </ion-card-content>
+         
+    </ion-card> --> 
 </ion-toolbar>
 
-<ion-content id="fhm_page">   
-        
-        <div class="fhm_container"> 
-            <div class="fhm_row">  
-                <div class="fhm_item">  
-                    <span (click)="onRssFeed()" >
-                        <ion-icon name="logo-rss"></ion-icon>
-                    </span>  
-                </div>  
-                <div class="fhm_item">  
-                    <span (click)="onVideo()" >
-                        <ion-icon name="film"></ion-icon>
-                    </span>  
-                </div>  
-            </div>
-            <!--   
-            <div class="fhm_row">  
-                <div class="fhm_item fhm_item3">  
-                    <span><ion-icon name="musical-notes"></ion-icon></span>  
-                </div>  
-                <div class="fhm_item fhm_item4">  
-                    <span><ion-icon name="pin"></ion-icon></span>  
-                </div>  
-            </div>
-             
-            <div class="fhm_row">  
-                <div class="fhm_item fhm_item5">  
-                    <span><ion-icon name="subway"></ion-icon></span>  
-                </div>  
-                <div class="fhm_item fhm_item6">  
-                    <span><ion-icon name="logo-bitcoin"></ion-icon></span>  
-                </div>  
-            </div>
-            -->   
-        </div>
-         
-    </ion-content>
+<ion-content>
+    <ion-grid class="mygrid" padding>
+        <ion-row>
+            <ion-col>
+                <img width="200" (click)="onMap()"  src="../../../assets/img/home/btn1.svg" >
+            </ion-col>
+            <ion-col>
+                <img width="200" (click)="onRssFeed()" src="../../../assets/img/home/btn2.svg" >
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <img width="200" (click)="onRestaurant()"  src="../../../assets/img/home/btn3.svg" >
+            </ion-col>
+            <ion-col>
+                <img width="200" (click)="onRssFeed()" src="../../../assets/img/home/btn4.svg" >
+            </ion-col>
+        </ion-row>
+    </ion-grid> 
+</ion-content>

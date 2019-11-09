@@ -27,7 +27,9 @@ const routes: Routes = [
     path: 'tutorial',
     loadChildren: './pages/tutorial/tutorial.module#TutorialModule'
   },
-  { path: 'map-from-to', loadChildren: './pages/map-from-to/map-from-to.module#MapFromToPageModule' },  { path: 'pop-map-direction-detail', loadChildren: './pages/templates/pop-map-direction-detail/pop-map-direction-detail.module#PopMapDirectionDetailPageModule' }
+  { path: 'map-from-to', loadChildren: './pages/map-from-to/map-from-to.module#MapFromToPageModule' },
+  { path: 'pop-map-direction-detail', loadChildren: './pages/templates/pop-map-direction-detail/pop-map-direction-detail.module#PopMapDirectionDetailPageModule' },
+  { path: 'restaurant', loadChildren: './pages/restaurant/restaurant.module#RestaurantPageModule' }
 
 
 ];

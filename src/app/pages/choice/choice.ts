@@ -1,7 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 //import { MapPlaceService } from '../../providers/MapPlaceService';
 import { IonList } from '@ionic/angular';
-import { ActionSheetController } from '@ionic/angular';
+import { IonSlides  } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,23 +26,35 @@ export class ChoicePage {
       ]
   }
 
+  slidesOpts = {
+    initialSlide: 1,
+    slidesPerView: 1.6,
+    autoplay:true,
+    speed: 400,
+   };
+
   constructor(
     //public mapPlaceService: MapPlaceService,
     public router: Router
     ) {
       this.initail();
-      //console.log(this.places);
      }
 
-  async initail() {
-    
+  async initail() {}
+
+  slidesDidLoad(slides: IonSlides) {
+    slides.startAutoplay();
   }
   
   onRssFeed() {  //  Re Direct TO Signup page.
     this.router.navigateByUrl('/app/tabs/rss-feed');
   }
 
-  onVideo (){
-    this.router.navigateByUrl('/app/tabs/video');
+  onMap (){
+    this.router.navigateByUrl('/app/tabs/map');
+  }
+
+  onRestaurant (){
+    this.router.navigateByUrl('/app/tabs/restaurant');
   }
 }
