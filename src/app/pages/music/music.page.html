@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Spotify Client
+    </ion-title>
+        <ion-button shape="round" color="success" (click)="authWithSpotify()" *ngIf="!loggedIn">Login</ion-button>
+        <ion-button shape="round" color="danger" (click)="logout()" *ngIf="loggedIn">Logout</ion-button>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+ 
+  <div *ngIf="!loggedIn" text-center padding>Please Login to load your Playlists!</div>
+ 
+  <ion-list>
+    <button ion-item *ngFor="let item of playlists" (click)="openPlaylist(item)">
+      <ion-avatar item-start *ngIf="item.images.length > 0">
+        <img [src]="item.images[0].url">
+      </ion-avatar>
+      {{ item.name }}
+      <p>Tracks: {{ item.tracks.total }}</p>
+    </button>
+  </ion-list>
+</ion-content>
