@@ -8,6 +8,7 @@ import { VideoPage } from '../video/video';
 import { MapPage } from '../map/map';
 import { PlacesPage } from '../places/places';
 import { RestaurantPage } from '../restaurant/restaurant.page';
+import { RestaurantDetailPage } from '../restaurant-detail/restaurant-detail.page';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'restaurant',
         component: RestaurantPage
+      },
+      {
+        path: 'restaurant-detail',
+        component: RestaurantDetailPage
       },
       /*
       {

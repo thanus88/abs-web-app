@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Shopping
+      Shop
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openCart()">
@@ -13,31 +13,23 @@
 </ion-header>
  
 <ion-content>
-  <div *ngFor="let cat of items" class="category-block">
- 
-    <ion-row no-padding class="category-banner">
-      <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
-        {{ cat.category }}
-      </ion-col>
-    </ion-row>
  
     <ion-slides [options]="sliderConfig">
-      <ion-slide *ngFor="let product of cat.products">
-        <div *ngIf="cat.expanded">
-          <ion-card>
+      <ion-slide *ngFor="let shop of allShop">
+        <ion-card  >
+          <div *ngIf="true">
+            <img src="assets/img/shop/food/shop-1.jpg"/>
             <ion-card-header>
-              <ion-card-title>
-                {{ product.name }} - ${{ product.price }}
-              </ion-card-title>
-              <ion-card-content>
-                <img src="https://via.placeholder.com/300x300">
-                <ion-button expand="full" (click)="addToCart(product)">Add to Cart</ion-button>
-              </ion-card-content>
+              <a (click)="goToShop()">
+                <ion-card-title>
+                  <h3>{{shop.name}}</h3>
+                </ion-card-title>
+              </a>
+              <ion-card-subtitle>{{shop.description}}</ion-card-subtitle>
             </ion-card-header>
-          </ion-card>
-        </div>
+          </div>
+        </ion-card>  
       </ion-slide>
     </ion-slides>
  
-  </div>
 </ion-content>

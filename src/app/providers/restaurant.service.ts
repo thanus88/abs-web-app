@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; 
+import { Observable } from 'rxjs';
  
 @Injectable({
   providedIn: 'root'
@@ -34,8 +36,34 @@ export class RestaurantService {
   ];
  
   private cart = [];
+
+  private shop = {};
+
+  private shopId :number;
  
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getShopTypeByCode(shopTypeCode): Observable<any> {
+    if(shopTypeCode == '01')
+      return this.http.get("../assets/data/shops.json");
+  }
+
+  getAllShop(): Observable<any> {
+      return this.http.get("../assets/data/shops.json");
+  }
+
+  getFoodShops() {
+    let shopTypeCode = '01';
+    this.getShopTypeByCode(shopTypeCode).subscribe(data => {
+      data.shops.forEach(shop => {
+          return this.shop = shop;
+      });
+    });
+  }
+
+  getShopById(): Observable<any> {
+    return this.http.get("../assets/data/shop-detail.json");
+  }
  
   getProducts() {
     return this.data;
