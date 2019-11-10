@@ -34,6 +34,7 @@
     "core-js": "^2.5.7",
     "ionicons": "^4.6.1",
     "rxjs": "^6.2.0",
+    "spotify-web-api-js": "^1.2.0",
     "sw-toolbox": "3.6.0",
     "underscore": "^1.9.1",
     "zone.js": "^0.8.26"
