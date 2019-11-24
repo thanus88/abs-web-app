@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestaurantService } from '../../providers/restaurant.service';
 import { Observable } from 'rxjs';
+import { NavController, NavParams } from '@ionic/angular';
+import { Shop } from '../../interfaces/shop.model';
 
 @Component({
   selector: 'restaurant-detail',
@@ -11,7 +13,7 @@ import { Observable } from 'rxjs';
 export class RestaurantDetailPage {
   cart = [];
   items = [];
-  shop : Observable<any>;
+  shop : Shop;
  
   sliderConfig = {
     slidesPerView: 1.6,
@@ -19,16 +21,19 @@ export class RestaurantDetailPage {
     centeredSlides: true
   };
  
-  constructor(private router: Router, private restaurantService: RestaurantService) {
+  constructor(private router: Router
+    , private restaurantService: RestaurantService) {
     this.initailData(); //  for load first time and keep.
   }
 
   initailData(){
-    this.items = this.restaurantService.getProducts();
+    //this.items = this.restaurantService.getProducts();
     this.cart = this.restaurantService.getCart();
-    this.restaurantService.getShopById().subscribe(data => {
-      this.shop = data.shop;
-    });
+    //this.restaurantService.getShopById().subscribe(data => {
+    //  this.shop = data.shop;
+    //});
+    this.shop = this.restaurantService.getShop();
+    console.log(this.shop);
   }
 
   resetData(){

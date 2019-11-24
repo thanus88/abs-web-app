@@ -10,6 +10,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ParallaxHeaderDirective } from './directives/parallax-header.directive';
+import { AngularFireModule} from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
@@ -17,7 +20,9 @@ import { ParallaxHeaderDirective } from './directives/parallax-header.directive'
     AppRoutingModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase, 'foodwork-4d317'),
+    AngularFireDatabaseModule
   ],
   declarations: [AppComponent,ParallaxHeaderDirective],
   providers: [InAppBrowser, SplashScreen, StatusBar],

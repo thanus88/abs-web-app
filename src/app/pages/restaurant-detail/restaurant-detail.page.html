@@ -18,30 +18,31 @@
   <ion-content>
     <div *ngIf="shop" >
       <div *ngFor="let cat of shop.category" class="category-block">
-        <ion-row no-padding class="category-banner">
+        <ion-row *ngIf="cat" no-padding class="category-banner">
           <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
             {{ cat.name }}
           </ion-col>
         </ion-row>
     
-        <ion-slides [options]="sliderConfig">
-          <ion-slide *ngFor="let product of cat.products">
-            <div *ngIf="cat.expanded">
-              <ion-card>
-                <ion-card-header>
-                  <ion-card-title>
-                      <h3>{{ product.name }} - ${{ product.price }}</h3>
-                  </ion-card-title>
-                  <ion-card-content>
-                    <img src="assets/img/shop/food/shop-1.jpg">
-                    <ion-button expand="full" (click)="addToCart(product)">เพิ่มในรถเข็น</ion-button>
-                  </ion-card-content>
-                </ion-card-header>
-              </ion-card>
-            </div>
-          </ion-slide>
-        </ion-slides>
-    
+        <div *ngIf="cat" >
+          <ion-slides [options]="sliderConfig">
+            <ion-slide *ngFor="let product of cat.products" >
+              <div *ngIf="product">
+                <ion-card>
+                  <ion-card-header>
+                    <ion-card-title>
+                        <h3>{{ product.name }} - ฿{{ product.price }}</h3>
+                    </ion-card-title>
+                    <ion-card-content>
+                      <img src="assets/img/shop/food/shop-1.jpg">
+                      <ion-button expand="full" (click)="addToCart(product)">เพิ่มในรถเข็น</ion-button>
+                    </ion-card-content>
+                  </ion-card-header>
+                </ion-card>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
       </div>
     </div>
   </ion-content>

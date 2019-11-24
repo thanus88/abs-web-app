@@ -1,79 +1,53 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; 
-import { Observable } from 'rxjs';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Shop } from '../interfaces/shop.model';
  
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
  
-  private data = [
-    {
-      category: 'Pizza',
-      expanded: true,
-      products: [
-        { id: 0, name: 'Salami', price: '8' },
-        { id: 1, name: 'Classic', price: '5' },
-        { id: 2, name: 'Tuna', price: '9' },
-        { id: 3, name: 'Hawai', price: '7' }
-      ]
-    },
-    {
-      category: 'Pasta',
-      products: [
-        { id: 4, name: 'Mac & Cheese', price: '8' },
-        { id: 5, name: 'Bolognese', price: '6' }
-      ]
-    },
-    {
-      category: 'Salad',
-      products: [
-        { id: 6, name: 'Ham & Egg', price: '8' },
-        { id: 7, name: 'Basic', price: '5' },
-        { id: 8, name: 'Ceaser', price: '9' }
-      ]
-    }
-  ];
- 
+  private shopsListRef = this.db.list<Shop>('shops');
+  private shop: Shop;
   private cart = [];
-
-  private shop = {};
-
-  private shopId :number;
+  private items = [];
  
-  constructor(private http: HttpClient) { }
+    constructor(private db: AngularFireDatabase) { }
 
-  getShopTypeByCode(shopTypeCode): Observable<any> {
-    if(shopTypeCode == '01')
-      return this.http.get("../assets/data/shops.json");
-  }
-
-  getAllShop(): Observable<any> {
-      return this.http.get("../assets/data/shops.json");
-  }
-
-  getFoodShops() {
-    let shopTypeCode = '01';
-    this.getShopTypeByCode(shopTypeCode).subscribe(data => {
-      data.shops.forEach(shop => {
-          return this.shop = shop;
-      });
-    });
-  }
-
-  getShopById(): Observable<any> {
-    return this.http.get("../assets/data/shop-detail.json");
-  }
+    public setShop(shop) {
+        this.shop = shop;
+    }
+    
+    getShop() {
+        return this.shop;
+    }
  
-  getProducts() {
-    return this.data;
-  }
+    getShopList() {
+        return this.shopsListRef;
+    }
  
-  getCart() {
-    return this.cart;
-  }
+    addShop(shop: Shop) {
+        return this.shopsListRef.push(shop);
+    }
  
-  addProduct(product) {
-    this.cart.push(product);
-  }
+    updateShop(shop: Shop) {
+        return this.shopsListRef.update(shop.key, shop);
+    }
+ 
+    removeShop(shop: Shop) {
+        return this.shopsListRef.remove(shop.key);
+    }
+
+    addProduct(product: any) {
+        return this.cart.push(product);
+    }
+
+    getProducts(){
+        return this.cart;
+    }
+
+    getCart() {
+        return this.cart;
+    }
+    
 }

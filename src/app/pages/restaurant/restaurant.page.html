@@ -15,20 +15,22 @@
 <ion-content>
  
     <ion-slides [options]="sliderConfig">
-      <ion-slide *ngFor="let shop of allShop">
-        <ion-card  >
-          <div *ngIf="true">
-            <img src="assets/img/shop/food/shop-1.jpg"/>
-            <ion-card-header>
-              <a (click)="goToShop()">
-                <ion-card-title>
-                  <h3>{{shop.name}}</h3>
-                </ion-card-title>
-              </a>
-              <ion-card-subtitle>{{shop.description}}</ion-card-subtitle>
-            </ion-card-header>
-          </div>
-        </ion-card>  
+      <ion-slide *ngFor="let shop of shopList | async">
+        <div>
+          <ion-card  >
+            <div *ngIf="true">
+              <img src="assets/img/shop/food/shop-1.jpg"/>
+              <ion-card-header>
+                <a (click)="goToShop(shop)">
+                  <ion-card-title>
+                    <h3>{{shop.name}}</h3>
+                  </ion-card-title>
+                </a>
+                <ion-card-subtitle>{{shop.desc}}</ion-card-subtitle>
+              </ion-card-header>
+            </div>
+          </ion-card> 
+        </div> 
       </ion-slide>
     </ion-slides>
  
