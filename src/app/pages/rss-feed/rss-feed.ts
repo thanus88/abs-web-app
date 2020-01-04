@@ -34,7 +34,7 @@ export class RssFeedPage {
       ],
       feedSource : [
         {
-          venderName : 'sanook.com',
+          venderName : 'SANOOK',
           logoUrl : '',
           types : [
             {
@@ -96,8 +96,15 @@ export class RssFeedPage {
           ]
         },
         {
-          venderName : 'Thairat',
-          logoUrl : ''
+          venderName : 'THAIRAT',
+          logoUrl : '',
+          types : [
+            {
+              descTh : 'ข่าวเด่นวันนี้',
+              descEn : 'News',
+              url : 'https://www.thairath.co.th/rss/news'
+            }
+          ]
         }
       ]
     }
