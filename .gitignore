@@ -49,3 +49,4 @@ gradle/wrapper/gradle-wrapper.jar
 .gradle/5.4.1/executionHistory/executionHistory.bin
 .gradle/5.4.1/fileHashes/fileHashes.bin
 .gradle/5.4.1/fileChanges/last-build.bin
+src/index.html
