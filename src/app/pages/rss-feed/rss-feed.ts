@@ -19,94 +19,109 @@ export class RssFeedPage {
     initialSlide: 1,
     speed: 400
   };
-  model = {
-    defaultUrl : 'https://news.google.com/rss?hl=th&gl=TH&ceid=TH:th',
-    targetUrl : null,
-    result : {},
-    feedSourceSelected : '',
-    feedTypeSource : {
-      feedTypes : [
-        {
-          code : '001',
-          descEn : 'News',
-          descTh : 'ข่าว'
-        }
-      ],
-      feedSource : [
-        {
-          venderName : 'SANOOK',
-          logoUrl : '',
-          types : [
-            {
-              descTh : 'ข่าวการเมือง',
-              descEn : 'Politic',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.politic.xml'
-            },
-            {
-              descTh : 'ข่าวบันเทิง',
-              descEn : 'Entertain',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.entertain.xml'
-            },
-            {
-              descTh : 'ข่าวอาชญากรรม',
-              descEn : 'Crime',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.crime.xml'
-            },
-            {
-              descTh : 'ข่าวต่างประเทศ',
-              descEn : 'World',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.world.xml'
-            },
-            {
-              descTh : 'ข่าวเศรษฐกิจ',
-              descEn : 'Economic',
-              url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.economic.xml'
-            }
-          ]
-        },
-        {
-          venderName : 'CH3',
-          logoUrl : '',
-           types : [
-            {
-              descTh : 'ข่าวการเมือง',
-              descEn : 'Politic',
-              url : 'http://news.ch3thailand.com/rss/PoliticsNews.rss'
-            },
-            {
-              descTh : 'ข่าวบันเทิง',
-              descEn : 'Entertain',
-              url : 'http://news.ch3thailand.com/rss/EntertainmentNews.rss'
-            },
-            {
-              descTh : 'ข่าวอาชญากรรม',
-              descEn : 'Crime',
-              url : 'http://news.ch3thailand.com/rss/CrimeNews.rss'
-            },
-            {
-              descTh : 'ข่าวต่างประเทศ',
-              descEn : 'World',
-              url : 'http://news.ch3thailand.com/rss/InternationalNews.rss'
-            },
-            {
-              descTh : 'ข่าวเศรษฐกิจ',
-              descEn : 'Economic',
-              url : 'http://news.ch3thailand.com/rss/EconomicNews.rss'
-            }
-          ]
-        },
-        {
-          venderName : 'THAIRAT',
-          logoUrl : '',
-          types : [
-            {
-              descTh : 'ข่าวเด่นวันนี้',
-              descEn : 'News',
-              url : 'https://www.thairath.co.th/rss/news'
-            }
-          ]
-        }
-      ]
+  model = this.initail();
+
+  initail() {
+    return {
+      defaultUrl : 'https://news.google.com/rss?hl=th&gl=TH&ceid=TH:th',
+      targetUrl : null,
+      result : {},
+      feedSourceSelected : '',
+      feedTypeSource : {
+        feedTypes : [
+          {
+            code : '001',
+            descEn : 'News',
+            descTh : 'ข่าว'
+          }
+        ],
+        feedSource : [
+          {
+            venderName : 'Google News',
+            logoUrl : '',
+            types : [
+              {
+                descTh : 'ข่าวเด่นวันนี้',
+                descEn : 'News',
+                url : 'https://news.google.com/rss?hl=th&gl=TH&ceid=TH:th'
+              }
+            ]
+          },
+          {
+            venderName : 'SANOOK',
+            logoUrl : '',
+            types : [
+              {
+                descTh : 'ข่าวการเมือง',
+                descEn : 'Politic',
+                url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.politic.xml'
+              },
+              {
+                descTh : 'ข่าวบันเทิง',
+                descEn : 'Entertain',
+                url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.entertain.xml'
+              },
+              {
+                descTh : 'ข่าวอาชญากรรม',
+                descEn : 'Crime',
+                url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.crime.xml'
+              },
+              {
+                descTh : 'ข่าวต่างประเทศ',
+                descEn : 'World',
+                url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.world.xml'
+              },
+              {
+                descTh : 'ข่าวเศรษฐกิจ',
+                descEn : 'Economic',
+                url : 'http://rssfeeds.sanook.com/rss/feeds/sanook/news.economic.xml'
+              }
+            ]
+          },
+          {
+            venderName : 'CH3',
+            logoUrl : '',
+            types : [
+              {
+                descTh : 'ข่าวการเมือง',
+                descEn : 'Politic',
+                url : 'https://news.google.com/rss?hl=th&gl=TH&ceid=TH:th'
+              },
+              {
+                descTh : 'ข่าวบันเทิง',
+                descEn : 'Entertain',
+                url : 'http://news.ch3thailand.com/rss/EntertainmentNews.rss'
+              },
+              {
+                descTh : 'ข่าวอาชญากรรม',
+                descEn : 'Crime',
+                url : 'http://news.ch3thailand.com/rss/CrimeNews.rss'
+              },
+              {
+                descTh : 'ข่าวต่างประเทศ',
+                descEn : 'World',
+                url : 'http://news.ch3thailand.com/rss/InternationalNews.rss'
+              },
+              {
+                descTh : 'ข่าวเศรษฐกิจ',
+                descEn : 'Economic',
+                url : 'http://news.ch3thailand.com/rss/EconomicNews.rss'
+              }
+            ]
+          },
+          {
+            venderName : 'THAIRAT',
+            logoUrl : '',
+            types : [
+              {
+                descTh : 'ข่าวเด่นวันนี้',
+                descEn : 'News',
+                url : 'https://www.thairath.co.th/rss/news'
+              }
+            ]
+          }
+        ]
+      }
     }
   }
   entries : Array<any> = [];
@@ -140,15 +155,22 @@ export class RssFeedPage {
     });
   }
 */
+
+  ionViewDidLeave() {
+  console.log('ionViewDidLeave RssFeedPage');
+  //this.resetData();
+  }
+
   ionViewWillEnter() {
     console.log('ionViewDidLoad RSSPage');
-
+    this.model = this.initail();
   }
+
   openUrl(entry){
       console.log('openUrl');
       this.iab.create(entry.link,"_system");
-
   }
+
   parseUrlWrapper(url){
     console.log('parseUrlWrapper');
     let parser = new RSSParser();
@@ -162,6 +184,7 @@ export class RssFeedPage {
       });
     });
   }
+  
   parseUrl(url){
     console.log('parseUrl');
 

@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-toolbar style="height: 10%">
+<ion-toolbar >
   <div style="padding: 10px;" >
       <ion-chip (click)="onClickFeedSource(item)" class="chip-outline ios ion-activatable hydrated" 
         *ngFor="let item of model.feedTypeSource.feedSource">
@@ -54,19 +54,53 @@
       </ion-fab-button>
     </ion-fab>
 
-    <ion-card #item *ngFor="let entry of model.result.items" >
-        <div *ngIf="entry.enclosure; then templateName">
-        </div>
+    <!-- Skeleton screen -->
+  <div *ngIf="!model.result.items">
+    <div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div>
 
-        <ng-template #templateName>
-          <img [src]="entry.enclosure.url" />
-        </ng-template>
-        
-        <ion-card-header>
-          <ion-card-subtitle>{{entry.pubDate}}</ion-card-subtitle>
-          <a (click)="openUrl(entry)">
-            <ion-card-title>{{entry.title}}</ion-card-title>
-          </a>
-        </ion-card-header>
-      </ion-card>
+    <ion-list>
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+  <ion-card #item *ngFor="let entry of model.result.items" >
+      <div *ngIf="entry.enclosure; then templateName">
+      </div>
+
+      <ng-template #templateName>
+        <img [src]="entry.enclosure.url" />
+      </ng-template>
+      
+      <ion-card-header>
+        <ion-card-subtitle>{{entry.pubDate}}</ion-card-subtitle>
+        <a (click)="openUrl(entry)">
+          <ion-card-title>{{entry.title}}</ion-card-title>
+        </a>
+      </ion-card-header>
+    </ion-card>
 </ion-content>
