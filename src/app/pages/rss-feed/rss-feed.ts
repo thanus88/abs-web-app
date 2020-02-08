@@ -34,6 +34,17 @@ export class RssFeedPage {
       ],
       feedSource : [
         {
+          venderName : 'Google News',
+          logoUrl : '',
+          types : [
+            {
+              descTh : 'ข่าวเด่นวันนี้',
+              descEn : 'News',
+              url : 'https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGRqTVhZU0FuUm9HZ0pVU0NnQVAB?hl=th&gl=TH&ceid=TH%3Ath'
+            }
+          ]
+        },
+        {
           venderName : 'SANOOK',
           logoUrl : '',
           types : [
